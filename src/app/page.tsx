@@ -1,11 +1,82 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getFeaturedTours } from "@/data/tours";
 import { site, whatsappLink } from "@/lib/site";
 import TourCard from "@/components/TourCard";
+import InquiryForm from "@/components/InquiryForm";
 
 export default function HomePage() {
   const featured = getFeaturedTours();
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    // Only auto-rotate when the carousel is actually scrollable (mobile/smaller screens).
+    const isScrollable = () => container.scrollWidth > container.clientWidth;
+
+    // Pause auto-rotation when the user has recently interacted
+    let suspendedUntil = 0;
+
+    const isContainerVisible = () => {
+      const rect = container.getBoundingClientRect();
+      const h = rect.height;
+      if (h === 0) return false;
+      const visibleTop = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+      return visibleTop / h >= 0.5; // at least 50% visible
+    };
+
+    const rotateCarousel = () => {
+      if (!isScrollable()) return;
+      if (Date.now() < suspendedUntil) return;
+      if (!isContainerVisible()) return;
+
+      const cards = Array.from(container.querySelectorAll<HTMLElement>("[data-carousel-card]"));
+      if (cards.length === 0) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      let closestIndex = 0;
+      let smallestDistance = Infinity;
+
+      cards.forEach((card, i) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const dist = Math.abs(cardCenter - containerCenter);
+        if (dist < smallestDistance) {
+          smallestDistance = dist;
+          closestIndex = i;
+        }
+      });
+
+      const nextIndex = (closestIndex + 1) % cards.length;
+      // use inline: 'center' so it recenters horizontally without forcing vertical jump
+      cards[nextIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    };
+
+    const intervalId = window.setInterval(rotateCarousel, 10000);
+    // run once shortly after mount but only if visible
+    const startTimeout = window.setTimeout(() => {
+      rotateCarousel();
+    }, 1200);
+
+    const suspend = () => {
+      suspendedUntil = Date.now() + 5000; // pause rotation for 5s after interaction
+    };
+    window.addEventListener("scroll", suspend, { passive: true });
+    window.addEventListener("touchstart", suspend, { passive: true });
+
+    return () => {
+      window.clearInterval(intervalId);
+      window.clearTimeout(startTimeout);
+      window.removeEventListener("scroll", suspend);
+      window.removeEventListener("touchstart", suspend);
+    };
+  }, []);
 
   return (
     <>
@@ -36,6 +107,9 @@ export default function HomePage() {
               <Link href="/tours" className="btn-primary">
                 Explore Tours
               </Link>
+              <a href={site.phoneHref} className="btn-call text-white border-white/60 hover:bg-white/10">
+                Call {site.phone}
+              </a>
               <a
                 href={whatsappLink("Namaste! I'd like help planning a spiritual tour.")}
                 target="_blank"
@@ -81,13 +155,18 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="container-page mt-12 grid gap-6 md:grid-cols-3">
+        <div
+          ref={carouselRef}
+          className="container-page mt-12 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth md:grid md:grid-cols-3 md:overflow-visible md:pb-0 [scrollbar-width:none]"
+        >
           <TriangleStep
             step="01"
             title="Kashi Vishwanath"
             place="Varanasi"
             text="Darshan at the Jyotirlinga, the sunrise boat ride, and the electrifying Ganga Aarti."
             imageSrc="/kashi-vishwanath-temple.jpg"
+            href="/tours/varanasi-prayagraj-ayodhya-tour-package"
+            className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
           <TriangleStep
             step="02"
@@ -95,6 +174,8 @@ export default function HomePage() {
             place="Ayodhya Dham"
             text="Ram Lalla darshan at the grand mandir, Hanuman Garhi and the serene Sarayu Aarti."
             imageSrc="/ram-mandir.jpg"
+            href="/tours/varanasi-prayagraj-ayodhya-tour-package"
+            className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
           <TriangleStep
             step="03"
@@ -102,7 +183,40 @@ export default function HomePage() {
             place="Prayagraj"
             text="Witness the holy confluence of the Ganga, Yamuna, and the mythical Saraswati."
             imageSrc="/sangam.jpg"
+            href="/tours/varanasi-prayagraj-ayodhya-tour-package"
+            className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
+        </div>
+      </section>
+
+      {/* ---------------- Quick Enquiry ---------------- */}
+      <section className="section bg-[#f07954]">
+        <div className="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start rounded-3xl bg-white/80 p-8 shadow-soft ring-1 ring-maroon/10">
+          <div className="">
+            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
+              Request a quote
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-700 text-maroon sm:text-5xl">
+              Book Spiritual Packages
+            </h2>
+            <p className="mt-4 max-w-xl text-ink/70">
+              Get the right yatra plan, tailored guidance and a competitive price from Divine Banaras.
+            </p>
+            <div className="mt-8 space-y-4">
+              <FeatureRow text="Only trusted & verified agents" />
+              <FeatureRow text="Friendly customer support" />
+              <FeatureRow text="100% money-safe guarantee" />
+              <FeatureRow text="Secure & safe online transactions" />
+            </div>
+          </div>
+          <div className="p-8">
+            <div className="mb-6 rounded-3xl bg-saffron/10 px-5 py-5">
+              <h3 className="mt-3 text-2xl font-semibold text-maroon text-center">
+                Enter your details
+              </h3>
+            </div>
+            <InquiryForm minimal defaultTour="Divine Triangle Tour Package" />
+          </div>
         </div>
       </section>
 
@@ -247,7 +361,7 @@ function HeroTile({
     >
       <Image src={imageSrc} alt="" fill className="object-cover" />
       <div className="absolute inset-0 bg-maroon/20" />
-      <span className="relative text-sm font-semibold text-white drop-shadow">{title}</span>
+      <span className="relative text-sm font-semibold text-white drop-shadow bg-saffron-light/70 rounded-2xl p-2">{title}</span>
     </div>
   );
 }
@@ -258,15 +372,19 @@ function TriangleStep({
   place,
   text,
   imageSrc,
+  href,
+  className,
 }: {
   step: string;
   title: string;
   place: string;
   text: string;
   imageSrc?: string;
+  href?: string;
+  className?: string;
 }) {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border border-maroon/10 bg-white p-7 shadow-card">
+  const cardContent = (
+    <div className={`relative overflow-hidden rounded-2xl border border-maroon/10 bg-white p-7 shadow-card ${className ?? ""}`}>
       {imageSrc ? (
         <>
           <Image src={imageSrc} alt="" fill className="object-cover" />
@@ -283,6 +401,20 @@ function TriangleStep({
       </div>
     </div>
   );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        data-carousel-card
+        className={`group block cursor-pointer focus:outline-none focus:ring-2 focus:ring-maroon/40 focus:ring-offset-2 ${className ?? ""}`}
+      >
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return <div data-carousel-card>{cardContent}</div>;
 }
 
 function Feature({
@@ -303,6 +435,17 @@ function Feature({
       </div>
       <h3 className="mt-4 font-display text-xl font-600 text-maroon">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-ink/70">{text}</p>
+    </div>
+  );
+}
+
+function FeatureRow({ text }: { text: string }) {
+  return (
+    <div className="flex items-start gap-3 text-ink/80 items-center">
+      <span className="mt-1 flex h-7 w-7 items-center justify-center rounded-full bg-saffron/15 text-saffron">
+        ✓
+      </span>
+      <span className="text-sm font-medium">{text}</span>
     </div>
   );
 }

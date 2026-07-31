@@ -39,6 +39,9 @@
   .btn-whatsapp {
     @apply btn bg-[#25D366] text-white shadow-soft hover:bg-[#1EBE5A] focus:ring-[#25D366];
   }
+  .btn-call {
+    @apply btn bg-maroon text-white shadow-soft hover:bg-maroon-dark focus:ring-maroon;
+  }
 
   .section {
     @apply py-16 sm:py-20 lg:py-24;

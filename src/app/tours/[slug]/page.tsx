@@ -63,7 +63,7 @@ export default async function TourDetailPage({
           {/* Main content */}
           <div>
             {/* Quick facts */}
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Fact label="Duration" value={tour.duration} />
               <Fact label="Category" value={tour.category} />
               <Fact label="Destinations" value={`${tour.places.length} places`} />
@@ -205,7 +205,7 @@ export default async function TourDetailPage({
 
 function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-sand/60 p-4 text-center">
+    <div className="min-w-0 rounded-xl bg-sand/60 p-4 text-center">
       <p className="text-[11px] uppercase tracking-wider text-ink/50">{label}</p>
       <p className="mt-1 font-display text-lg font-600 text-maroon">{value}</p>
     </div>

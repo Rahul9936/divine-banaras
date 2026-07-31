@@ -11,9 +11,9 @@ export const site = {
     "Divine Banaras crafts spiritual tours through Kashi (Varanasi), Ayodhya Dham and Pashupatinath in Nepal, along with guided Buddhist circuit journeys through Sarnath and beyond.",
 
   // --- Contact details (replace with your real details) ---
-  phone: "+91 70802 91130",
-  phoneHref: "tel:+917080291130",
-  whatsapp: "917080291130", // country code + number, digits only
+  phone: "+917068474084",
+  phoneHref: "tel:+917068474084",
+  whatsapp: "917068474084", // country code + number, digits only
   email: "info@divinebanaras.com",
   address: "Assi Ghat, Varanasi, Uttar Pradesh 221005, India",
 

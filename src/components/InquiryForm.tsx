@@ -7,8 +7,10 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 export default function InquiryForm({
   defaultTour = "",
+  minimal = false,
 }: {
   defaultTour?: string;
+  minimal?: boolean;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
@@ -109,7 +111,8 @@ export default function InquiryForm({
         aria-hidden="true"
         className="hidden"
       />
-      <div className="grid gap-4 sm:grid-cols-2">
+      <input type="hidden" name="tour" value={defaultTour || "Divine Triangle Tour Package"} />
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
         <Field label="Full Name" name="name" required placeholder="Your name" />
         <Field
           label="Phone / WhatsApp"
@@ -119,57 +122,61 @@ export default function InquiryForm({
           placeholder="+91…"
         />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field
-          label="Email"
-          name="email"
-          type="email"
-          placeholder="you@example.com"
-        />
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="tour" className="text-sm font-medium text-ink/80">
-            Tour of Interest
-          </label>
-          <select
-            id="tour"
-            name="tour"
-            defaultValue={defaultTour}
-            className="rounded-xl border border-maroon/15 bg-white px-4 py-3 text-sm outline-none focus:border-saffron focus:ring-2 focus:ring-saffron/30"
-          >
-            <option value="">Not sure yet / general enquiry</option>
-            {tours.map((t) => (
-              <option key={t.slug} value={t.title}>
-                {t.title.split("—")[0].trim()} ({t.duration})
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field
-          label="Travel Date (approx.)"
-          name="date"
-          type="date"
-        />
-        <Field
-          label="No. of Travellers"
-          name="travellers"
-          type="number"
-          placeholder="2"
-        />
-      </div>
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="text-sm font-medium text-ink/80">
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={4}
-          placeholder="Tell us what you're looking for — darshan preferences, special occasions, budget…"
-          className="rounded-xl border border-maroon/15 bg-white px-4 py-3 text-sm outline-none focus:border-saffron focus:ring-2 focus:ring-saffron/30"
-        />
-      </div>
+      {!minimal && (
+        <>
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+            <Field
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+            />
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="tour" className="text-sm font-medium text-ink/80">
+                Tour of Interest
+              </label>
+              <select
+                id="tour"
+                name="tour"
+                defaultValue={defaultTour}
+                className="rounded-xl border border-maroon/15 bg-white px-4 py-3 text-sm outline-none focus:border-saffron focus:ring-2 focus:ring-saffron/30"
+              >
+                <option value="">Not sure yet / general enquiry</option>
+                {tours.map((t) => (
+                  <option key={t.slug} value={t.title}>
+                    {t.title.split("—")[0].trim()} ({t.duration})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+            <Field
+              label="Travel Date (approx.)"
+              name="date"
+              type="date"
+            />
+            <Field
+              label="No. of Travellers"
+              name="travellers"
+              type="number"
+              placeholder="2"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="message" className="text-sm font-medium text-ink/80">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              placeholder="Tell us what you're looking for — darshan preferences, special occasions, budget…"
+              className="rounded-xl border border-maroon/15 bg-white px-4 py-3 text-sm outline-none focus:border-saffron focus:ring-2 focus:ring-saffron/30"
+            />
+          </div>
+        </>
+      )}
 
       {status === "error" && (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">

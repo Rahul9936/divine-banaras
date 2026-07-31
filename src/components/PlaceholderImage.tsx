@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 /**
  * Image placeholder for tour hero sections with optional decorative overlay.
  */
@@ -23,7 +21,7 @@ export default function PlaceholderImage({
       aria-label={label ?? "Tour image"}
     >
       {imageSrc ? (
-        <Image src={imageSrc} alt="" fill className="object-cover" />
+        <img src={imageSrc} alt="" className="h-full w-full object-cover" />
       ) : null}
       {/* Subtle mandala / ghat silhouette overlay */}
       <svg
@@ -35,19 +33,18 @@ export default function PlaceholderImage({
         <g fill="none" stroke="white" strokeWidth="1.2">
           <circle cx="200" cy="120" r="60" opacity="0.5" />
           <circle cx="200" cy="120" r="42" opacity="0.5" />
-          {Array.from({ length: 12 }).map((_, i) => {
-            const a = (i * Math.PI) / 6;
-            return (
-              <line
-                key={i}
-                x1={200 + Math.cos(a) * 42}
-                y1={120 + Math.sin(a) * 42}
-                x2={200 + Math.cos(a) * 60}
-                y2={120 + Math.sin(a) * 60}
-                opacity="0.5"
-              />
-            );
-          })}
+          <line x1="200" y1="78" x2="200" y2="60" opacity="0.5" />
+          <line x1="218" y1="82" x2="230" y2="66" opacity="0.5" />
+          <line x1="236" y1="94" x2="252" y2="82" opacity="0.5" />
+          <line x1="248" y1="114" x2="268" y2="112" opacity="0.5" />
+          <line x1="242" y1="132" x2="262" y2="140" opacity="0.5" />
+          <line x1="220" y1="148" x2="232" y2="166" opacity="0.5" />
+          <line x1="200" y1="154" x2="200" y2="172" opacity="0.5" />
+          <line x1="182" y1="148" x2="170" y2="166" opacity="0.5" />
+          <line x1="160" y1="132" x2="140" y2="140" opacity="0.5" />
+          <line x1="152" y1="114" x2="132" y2="112" opacity="0.5" />
+          <line x1="164" y1="94" x2="148" y2="82" opacity="0.5" />
+          <line x1="182" y1="82" x2="170" y2="66" opacity="0.5" />
         </g>
         {/* ghat steps + temple silhouette */}
         <g fill="white" opacity="0.14">
