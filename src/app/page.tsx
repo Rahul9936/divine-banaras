@@ -1,16 +1,50 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getFeaturedTours } from "@/data/tours";
-import { site, whatsappLink } from "@/lib/site";
+import { site } from "@/lib/site";
 import TourCard from "@/components/TourCard";
 import InquiryForm from "@/components/InquiryForm";
 
+const DESTINATIONS = [
+  { id: "all", label: "All Destinations" },
+  { id: "kashi", label: "Kashi (Varanasi)" },
+  { id: "ayodhya", label: "Ayodhya" },
+  { id: "prayagraj", label: "Prayagraj" },
+  { id: "bodhgaya", label: "Bodhgaya" },
+];
+
 export default function HomePage() {
+  const router = useRouter();
   const featured = getFeaturedTours();
   const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  // Search Filter State
+  const [selectedDest, setSelectedDest] = useState("all");
+
+  // Dynamic Route Handler based on selected destination
+  const handleExploreClick = () => {
+    if (selectedDest === "kashi") {
+      router.push("/tours/varanasi-2-days-itinerary");
+      return;
+    }
+
+    if (selectedDest === "ayodhya" || selectedDest === "prayagraj") {
+      router.push("/tours/varanasi-prayagraj-ayodhya-tour-package");
+      return;
+    }
+
+    if (selectedDest === "bodhgaya") {
+      router.push("/tours/varanasi-gaya-tour-package");
+      return;
+    }
+
+    // Default fallback: All tours page
+    router.push("/tours");
+  };
 
   useEffect(() => {
     const container = carouselRef.current;
@@ -54,18 +88,16 @@ export default function HomePage() {
       });
 
       const nextIndex = (closestIndex + 1) % cards.length;
-      // use inline: 'center' so it recenters horizontally without forcing vertical jump
       cards[nextIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     };
 
     const intervalId = window.setInterval(rotateCarousel, 10000);
-    // run once shortly after mount but only if visible
     const startTimeout = window.setTimeout(() => {
       rotateCarousel();
     }, 1200);
 
     const suspend = () => {
-      suspendedUntil = Date.now() + 5000; // pause rotation for 5s after interaction
+      suspendedUntil = Date.now() + 5000;
     };
     window.addEventListener("scroll", suspend, { passive: true });
     window.addEventListener("touchstart", suspend, { passive: true });
@@ -80,45 +112,75 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ---------------- Hero ---------------- */}
-      <section className="relative overflow-hidden text-cream">
+      {/* ---------------- Interactive Hero ---------------- */}
+      <section className="relative overflow-hidden text-cream bg-maroon-dark min-h-[85vh] flex items-center">
+        {/* Background Image */}
         <div className="absolute inset-0">
           <Image
             src="/banner.png"
             alt="Banaras ghats and temple scenery"
             fill
             priority
-            className="object-cover"
+            className="object-cover opacity-50 scale-105"
           />
-          <div className="absolute inset-0 " />
+          <div className="absolute inset-0 bg-gradient-to-t from-maroon-dark via-maroon-dark/60 to-transparent" />
         </div>
-        <div className="absolute inset-0 opacity-10 divider-dots text-white" aria-hidden="true" />
-        <div className="container-page relative grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:py-28">
-          <div className="animate-fade-up">
-            <div className="eyebrow inline-block p-4 text-saffron-light bg-ink/70 rounded-lg">Kashi · Ayodhya · Prayagraj · Bodhgaya</div>
-            <h1 className="mt-4 font-display text-4xl font-700 leading-tight sm:text-5xl lg:text-6xl bg-ink/70 p-4 rounded-lg">
+
+        <div className="container-page relative z-10 grid gap-10 py-16 lg:grid-cols-12 lg:items-center lg:py-24">
+          <div className="lg:col-span-7 animate-fade-up">
+            
+            {/* Trust Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-xs font-medium text-marigold border border-white/20 mb-4">
+              <span className="flex text-amber-400">★ ★ ★ ★ ★</span>
+              <span className="text-cream/90">4.9/5 (500+ Devotees Guided)</span>
+            </div>
+
+            <h1 className="font-display text-4xl font-700 leading-tight sm:text-5xl lg:text-6xl text-cream drop-shadow">
               Walk the sacred path of{" "}
               <span className="text-marigold">Bharat</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/85 bg-ink/70 p-4 rounded-lg">
-              From the eternal ghats of Kashi Vishwanath to Ayodhya’s Ram Janmabhoomi, the holy Triveni Sangam in Prayagraj, and the spiritual tranquility of Bodhgaya — Divine Banaras crafts unforgettable 2–3 day yatras and grand spiritual circuits.
+
+            <p className="mt-3 max-w-xl text-base sm:text-lg leading-relaxed text-cream/90 drop-shadow-sm">
+              Seamless 2–3 day yatras & grand spiritual circuits across Kashi, Ayodhya, Prayagraj, and Bodhgaya with dedicated priest support & hassle-free darshan.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/tours" className="btn-primary">
-                Explore Tours
-              </Link>
-              <a href={site.phoneHref} className="btn-call text-white border-white/60 hover:bg-white/10">
-                Call {site.phone}
-              </a>
-              <a
-                href={whatsappLink("Namaste! I'd like help planning a spiritual tour.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp"
-              >
-                Plan on WhatsApp
-              </a>
+
+            {/* Interactive Search / Filter Widget */}
+            <div className="mt-6 rounded-2xl bg-white/10 backdrop-blur-md p-4 sm:p-5 border border-white/20 shadow-2xl">
+              <p className="text-xs font-semibold uppercase tracking-wider text-marigold mb-3">
+                Select Your Destination
+              </p>
+
+              {/* Destination Pills */}
+              <div className="flex flex-wrap gap-2 mb-2">
+                {DESTINATIONS.map((dest) => (
+                  <button
+                    key={dest.id}
+                    type="button"
+                    onClick={() => setSelectedDest(dest.id)}
+                    className={`rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-all ${
+                      selectedDest === dest.id
+                        ? "bg-marigold text-maroon-dark shadow-md scale-105 font-semibold"
+                        : "bg-black/30 text-cream/80 hover:bg-black/50 hover:text-white"
+                    }`}
+                  >
+                    {dest.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Dynamic CTA Button */}
+              <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onClick={handleExploreClick}
+                  className="btn-primary text-center py-3 text-sm flex-1 font-semibold shadow-lg hover:shadow-marigold/20 cursor-pointer"
+                >
+                  Explore {selectedDest !== "all" ? DESTINATIONS.find(d => d.id === selectedDest)?.label : "All"} Tours →
+                </button>
+              </div>
             </div>
+
+            {/* Stats Row */}
             <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-cream/80">
               <Stat value="2–7" label="Day itineraries" />
               <Stat value="100%" label="Assisted darshan" />
@@ -126,10 +188,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Hero collage of gradient cards (placeholders for photos) */}
-          <div className="relative block lg:block">
+          {/* Hero Image Collage */}
+          <div className="lg:col-span-5 block">
             <div className="grid grid-cols-2 gap-4">
-              <div className="mt-10 space-y-4">
+              <div className="mt-8 space-y-4">
                 <HeroTile title="Kashi Vishwanath" imageSrc="/kashi.jpg" />
                 <HeroTile title="Ganga Aarti" imageSrc="/ganga-aarti.jpg" tall />
               </div>
@@ -192,7 +254,7 @@ export default function HomePage() {
       {/* ---------------- Quick Enquiry ---------------- */}
       <section className="section bg-[#f07954]">
         <div className="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start rounded-3xl bg-white/80 p-8 shadow-soft ring-1 ring-maroon/10">
-          <div className="">
+          <div>
             <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
               Request a quote
             </p>
@@ -361,7 +423,9 @@ function HeroTile({
     >
       <Image src={imageSrc} alt="" fill className="object-cover" />
       <div className="absolute inset-0 bg-maroon/20" />
-      <span className="relative text-sm font-semibold text-white drop-shadow bg-saffron-light/70 rounded-2xl p-2">{title}</span>
+      <span className="relative text-sm font-semibold text-white drop-shadow bg-saffron-light/80 rounded-xl px-2.5 py-1 backdrop-blur-sm">
+        {title}
+      </span>
     </div>
   );
 }
@@ -441,8 +505,8 @@ function Feature({
 
 function FeatureRow({ text }: { text: string }) {
   return (
-    <div className="flex items-start gap-3 text-ink/80 items-center">
-      <span className="mt-1 flex h-7 w-7 items-center justify-center rounded-full bg-saffron/15 text-saffron">
+    <div className="flex items-center gap-3 text-ink/80">
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-saffron/15 text-saffron">
         ✓
       </span>
       <span className="text-sm font-medium">{text}</span>

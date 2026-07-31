@@ -24,6 +24,7 @@ export interface Tour {
   gradient?: string; // Tailwind CSS gradient class for card background
   /** Background image path for tour hero section. */
   imageSrc: string;
+  images?: string[];
   summary: string;
   highlights: string[];
   itinerary: ItineraryDay[];
@@ -41,6 +42,7 @@ export const tours: Tour[] = [
     "places": ["Varanasi", "Prayagraj", "Ayodhya"],
     "priceFrom": 0,
     "imageSrc": "/varanasi-prayagraj-ayodhya.png",
+    "images": ["/kashi.jpg", "/sangam.jpg", "/ram-mandir.jpg"],
     "featured": true,
     "gradient": "bg-sunrise-gradient",
     "summary": "This spiritual journey covers three of the most revered religious cities of India, offering you a rich cultural and spiritual experience in Varanasi, Prayagraj, and Ayodhya.",
@@ -59,7 +61,7 @@ export const tours: Tour[] = [
       {
         "day": "Day 2",
         "title": "Varanasi - Prayagraj - Ayodhya",
-        "description": "Early in the morning, visit Kashi Vishwanath Temple and Kaal Bhairav. Return to the hotel for breakfast, then drive to Prayagraj. Visit the Triveni Sangam to take a holy dip at the confluence of the Ganga, Yamuna, and Saraswati rivers, and visit the revered Hanuman Temple. In the evening, drive to Ayodhya for your self-arranged overnight stay."
+        "description": "Early in the morning, visit Kashi Vishwanath Temple and Kaal Bhairav. Return to the hotel for breakfast, then drive to Prayagraj. Visit the Triveni Sangam to take a holy dip at the confluence of the Ganga, Yamuna, and Saraswati rivers, and visit the revered Hanuman Temple. In the evening, drive to Ayodhya for an overnight stay."
       },
       {
         "day": "Day 3",
