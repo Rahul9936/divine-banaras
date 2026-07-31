@@ -1,11 +1,40 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us | Divine Banaras",
   description:
     "Divine Banaras is a Varanasi-based spiritual travel agency crafting soulful yatras across Kashi, Ayodhya, Nepal and the Buddhist circuit.",
+  keywords: [
+    "spiritual travel agency",
+    "Varanasi travel",
+    "Ayodhya pilgrimage",
+    "Bodhgaya tours",
+    "Buddhist circuit",
+  ],
+  openGraph: {
+    title: "About Us | Divine Banaras",
+    description:
+      "Divine Banaras is a Varanasi-based spiritual travel agency crafting soulful yatras across Kashi, Ayodhya, Nepal and the Buddhist circuit.",
+    url: `${site.url}/about`,
+    siteName: site.name,
+    type: "website",
+    images: [
+      {
+        url: `${site.url}/banner.png`,
+        alt: "Divine Banaras spiritual travel agency",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | Divine Banaras",
+    description:
+      "Divine Banaras is a Varanasi-based spiritual travel agency crafting soulful yatras across Kashi, Ayodhya, Nepal and the Buddhist circuit.",
+    images: [`${site.url}/banner.png`],
+  },
 };
 
 export default function AboutPage() {

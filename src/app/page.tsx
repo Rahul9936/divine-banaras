@@ -1,5 +1,6 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +9,39 @@ import { getFeaturedTours } from "@/data/tours";
 import { site } from "@/lib/site";
 import TourCard from "@/components/TourCard";
 import InquiryForm from "@/components/InquiryForm";
+
+export const metadata: Metadata = {
+  title: site.name,
+  description: site.description,
+  keywords: [
+    "Varanasi spiritual tours",
+    "Kashi tour packages",
+    "Ayodhya pilgrimage",
+    "Prayagraj yatra",
+    "Bodhgaya travel",
+    "Ganga Aarti tours",
+    "Indian spiritual travel",
+  ],
+  openGraph: {
+    title: site.name,
+    description: site.description,
+    url: `${site.url}/`,
+    siteName: site.name,
+    type: "website",
+    images: [
+      {
+        url: `${site.url}/banner.png`,
+        alt: "Banaras ghats and temple scenery",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.name,
+    description: site.description,
+    images: [`${site.url}/banner.png`],
+  },
+};
 
 const DESTINATIONS = [
   { id: "all", label: "All Destinations" },

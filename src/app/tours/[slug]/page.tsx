@@ -18,10 +18,60 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const tour = getTour(slug);
-  if (!tour) return { title: "Tour not found" };
+  if (!tour) {
+    return {
+      title: "Tour not found | Divine Banaras",
+      description: "The requested tour could not be found on Divine Banaras.",
+      openGraph: {
+        title: "Tour not found | Divine Banaras",
+        description: "The requested tour could not be found on Divine Banaras.",
+        url: `${site.url}/tours/${slug}`,
+        siteName: site.name,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Tour not found | Divine Banaras",
+        description: "The requested tour could not be found on Divine Banaras.",
+      },
+    };
+  }
+
+  const tourTitle = tour.title.split("—")[0].trim();
+  const imageUrl = `${site.url}${tour.imageSrc}`;
+  const pageUrl = `${site.url}/tours/${tour.slug}`;
+
   return {
-    title: tour.title.split("—")[0].trim(),
+    title: `${tourTitle} | Divine Banaras`,
     description: tour.summary,
+    keywords: [
+      tour.title,
+      tour.category,
+      "spiritual tours",
+      "Varanasi tour",
+      "Ayodhya pilgrimage",
+      "Prayagraj travel",
+      "Bodhgaya travel",
+    ],
+    openGraph: {
+      title: `${tourTitle} | Divine Banaras`,
+      description: tour.summary,
+      url: pageUrl,
+      siteName: site.name,
+      type: "website",
+      images: [
+        {
+          url: imageUrl,
+          alt: `${tourTitle} — ${tour.subtitle}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tourTitle} | Divine Banaras`,
+      description: tour.summary,
+      images: [imageUrl],
+    },
   };
 }
 

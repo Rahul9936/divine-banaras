@@ -4,9 +4,36 @@ import PageHeader from "@/components/PageHeader";
 import InquiryForm from "@/components/InquiryForm";
 
 export const metadata: Metadata = {
-  title: "Contact & Enquiry",
+  title: "Contact & Enquiry | Divine Banaras",
   description:
     "Get in touch with Divine Banaras to plan your spiritual yatra. Call, WhatsApp, email or send us an enquiry.",
+  keywords: [
+    "contact Divine Banaras",
+    "spiritual travel enquiry",
+    "Varanasi tour booking",
+    "Ayodhya pilgrimage planning",
+  ],
+  openGraph: {
+    title: "Contact & Enquiry | Divine Banaras",
+    description:
+      "Get in touch with Divine Banaras to plan your spiritual yatra. Call, WhatsApp, email or send us an enquiry.",
+    url: `${site.url}/contact`,
+    siteName: site.name,
+    type: "website",
+    images: [
+      {
+        url: `${site.url}/banner.png`,
+        alt: "Contact Divine Banaras for spiritual tours",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact & Enquiry | Divine Banaras",
+    description:
+      "Get in touch with Divine Banaras to plan your spiritual yatra. Call, WhatsApp, email or send us an enquiry.",
+    images: [`${site.url}/banner.png`],
+  },
 };
 
 export default function ContactPage() {

@@ -4,9 +4,38 @@ import TourCard from "@/components/TourCard";
 import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Tours & Yatras",
+  title: "Tours & Yatras | Divine Banaras",
   description:
     "Browse spiritual tour packages from Divine Banaras — Kashi Vishwanath, Ayodhya Ram Janmabhoomi, Pashupatinath Nepal and the Buddhist circuit through Sarnath.",
+  keywords: [
+    "spiritual tours",
+    "Divine Triangle",
+    "Varanasi tours",
+    "Bodhgaya tour",
+    "Ayodhya pilgrimage",
+    "Prayagraj travel",
+  ],
+  openGraph: {
+    title: "Tours & Yatras | Divine Banaras",
+    description:
+      "Browse spiritual tour packages from Divine Banaras — Kashi Vishwanath, Ayodhya Ram Janmabhoomi, Pashupatinath Nepal and the Buddhist circuit through Sarnath.",
+    url: `${new URL("/tours", "https://divinebanaras.com").toString()}`,
+    siteName: "Divine Banaras",
+    type: "website",
+    images: [
+      {
+        url: "https://divinebanaras.com/banner.png",
+        alt: "Divine Banaras tours and spiritual journeys",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tours & Yatras | Divine Banaras",
+    description:
+      "Browse spiritual tour packages from Divine Banaras — Kashi Vishwanath, Ayodhya Ram Janmabhoomi, Pashupatinath Nepal and the Buddhist circuit through Sarnath.",
+    images: ["https://divinebanaras.com/banner.png"],
+  },
 };
 
 export default function ToursPage() {

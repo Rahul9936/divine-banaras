@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   keywords: [
-    "Varanasi tours",
+    "Varanasi sightseeing",
     "Kashi Vishwanath",
     "Ayodhya Ram Janmabhoomi",
     "Pashupatinath Nepal",
@@ -35,13 +35,34 @@ export const metadata: Metadata = {
     "Sarnath",
     "spiritual tours India",
     "Ganga Aarti",
+    "Kashi tour packages",
+    "Varanasi tour packages",
+    "Places to visit in Varanasi",
+    "Kashi Ayodhya tour",
   ],
+  authors: [{ name: site.name }],
   openGraph: {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
     url: site.url,
     siteName: site.name,
     type: "website",
+    images: [
+      {
+        url: `${site.url}/banner.png`,
+        alt: "Banaras ghats and temple scenery",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    images: [`${site.url}/banner.png`],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   icons: {
     icon: "/favicon.svg",
