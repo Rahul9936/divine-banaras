@@ -22,9 +22,7 @@ export default function TourCard({ tour }: { tour: Tour }) {
         <span className="inline-flex rounded-full bg-sand px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-maroon self-start">
           {tour.category}
         </span>
-        <h3 className="mt-3 font-display text-xl font-600 leading-snug text-maroon">
-          {tour.title.split("—")[0].trim()}
-        </h3>
+        <h3 className="mt-3 font-display text-xl font-600 leading-snug text-maroon">{tour.title}</h3>
         <p className="mt-1 text-sm text-ink/70">{tour.subtitle}</p>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -38,20 +36,35 @@ export default function TourCard({ tour }: { tour: Tour }) {
           ))}
         </div>
 
+        <dl className="mt-5 grid gap-2 border-t border-maroon/10 pt-4 text-xs text-ink/65">
+          <div className="flex items-center justify-between gap-3">
+            <dt>Starting point</dt>
+            <dd className="font-semibold text-ink/80">{tour.startsIn.replace("Starts in ", "")}</dd>
+          </div>
+          <div className="flex items-center justify-between gap-3">
+            <dt>Stay</dt>
+            <dd className="text-right font-semibold text-ink/80">{tour.stay}</dd>
+          </div>
+          <div className="flex items-center justify-between gap-3">
+            <dt>Transport</dt>
+            <dd className="text-right font-semibold text-ink/80">{tour.transport}</dd>
+          </div>
+        </dl>
+
         <div className="mt-5 flex items-end justify-between border-t border-maroon/10 pt-4">
-          {/* <div>
-            <span className="text-[11px] uppercase tracking-wider text-ink/50 hidden">
-              From
+          <div>
+            <span className="text-[11px] uppercase tracking-wider text-ink/50">
+              {tour.priceFrom > 0 ? "From" : "Pricing"}
             </span>
-            <p className="font-display text-2xl font-700 text-saffron-dark hidden">
-              {formatINR(tour.priceFrom)}
-              <span className="ml-1 text-xs font-sans font-normal text-ink/50">
-                / person
-              </span>
+            <p className="font-display text-xl font-700 text-saffron-dark">
+              {tour.priceFrom > 0 ? formatINR(tour.priceFrom) : "Tailored quote"}
+              {tour.priceFrom > 0 && (
+                <span className="ml-1 text-xs font-sans font-normal text-ink/50">/ person</span>
+              )}
             </p>
-          </div> */}
+          </div>
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-maroon transition-colors group-hover:text-saffron">
-            View
+            View itinerary
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

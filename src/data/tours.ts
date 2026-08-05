@@ -29,6 +29,9 @@ export interface Tour {
   duration: string;
   places: string[];
   priceFrom: number; // per person, in INR
+  startsIn: string;
+  stay: string;
+  transport: string;
   featured?: boolean;
   gradient?: string; // Tailwind CSS gradient class for card background
   /** An optional list of stops used by the route map component. */
@@ -52,6 +55,9 @@ export const tours: Tour[] = [
     "duration": "2 Days / 1 Night",
     "places": ["Varanasi", "Sarnath"],
     "priceFrom": 0,
+    "startsIn": "Starts in Varanasi",
+    "stay": "1-night stay included",
+    "transport": "Private local vehicle",
     "featured": true,
     "imageSrc": "/ganga-aarti.jpg",
     "images": ["/ganga-aarti.jpg", "/vt-bhu.jpg", "/kashi-vishwanath-temple.jpg", "/sankat-mochan.jpg", "/sarnath.jpg"],
@@ -138,6 +144,9 @@ export const tours: Tour[] = [
       "Ayodhya"
     ],
     "priceFrom": 0,
+    "startsIn": "Starts in Varanasi",
+    "stay": "Hotel stay except Ayodhya",
+    "transport": "Intercity transport included",
     "imageSrc": "/divine-triangle.png",
     "images": [
       "/kashi.jpg",
@@ -285,6 +294,9 @@ export const tours: Tour[] = [
       "Varanasi"
     ],
     "priceFrom": 18000,
+    "startsIn": "Starts in Gaya",
+    "stay": "2-night 3-star stay included",
+    "transport": "Dedicated cab with driver",
     "featured": true,
     "imageSrc": "/bodhgaya.jpg",
     "images": [
@@ -445,6 +457,9 @@ export const tours: Tour[] = [
       "Ayodhya"
     ],
     "priceFrom": 0,
+    "startsIn": "Starts in Varanasi",
+    "stay": "5-night stay included",
+    "transport": "Private dedicated vehicle",
     "featured": true,
     "imageSrc": "/sangam.jpg",
     "images": [
@@ -671,6 +686,9 @@ export const tours: Tour[] = [
       "Gaya"
     ],
     "priceFrom": 15999,
+    "startsIn": "Starts in Varanasi",
+    "stay": "3-night stay included",
+    "transport": "Private dedicated vehicle",
     "featured": true,
     "imageSrc": "/pinddaan.jpg",
     "images": [

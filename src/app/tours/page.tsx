@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { tours, categories } from "@/data/tours";
 import TourCard from "@/components/TourCard";
 import PageHeader from "@/components/PageHeader";
@@ -50,6 +51,17 @@ export default function ToursPage() {
 
       <section className="section">
         <div className="container-page space-y-16">
+          <div className="grid gap-5 rounded-2xl border border-maroon/10 bg-sand/45 p-6 shadow-sm sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+            <div>
+              <p className="eyebrow">Flexible by design</p>
+              <h2 className="mt-2 font-display text-3xl font-700 text-maroon">Need a journey shaped around you?</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink/70">
+                Every itinerary can be adapted to your dates, pace, hotel preference and darshan needs. Start with a conversation before you commit.
+              </p>
+            </div>
+            <Link href="/contact" className="btn-primary whitespace-nowrap">Ask about a custom yatra</Link>
+          </div>
+
           {categories.map((category) => {
             const list = tours.filter((t) => t.category === category);
             if (list.length === 0) return null;
