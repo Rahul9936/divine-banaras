@@ -11,7 +11,6 @@ export default function TourCard({ tour }: { tour: Tour }) {
       <div className="relative">
         <PlaceholderImage
           imageSrc={tour.imageSrc}
-          label={tour.category}
           className="h-52 w-full"
         />
         <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-maroon shadow-sm">
@@ -20,7 +19,10 @@ export default function TourCard({ tour }: { tour: Tour }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-xl font-600 leading-snug text-maroon">
+        <span className="inline-flex rounded-full bg-sand px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-maroon self-start">
+          {tour.category}
+        </span>
+        <h3 className="mt-3 font-display text-xl font-600 leading-snug text-maroon">
           {tour.title.split("—")[0].trim()}
         </h3>
         <p className="mt-1 text-sm text-ink/70">{tour.subtitle}</p>

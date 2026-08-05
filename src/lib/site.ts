@@ -14,8 +14,8 @@ export const site = {
   phone: "+917068474084",
   phoneHref: "tel:+917068474084",
   whatsapp: "917068474084", // country code + number, digits only
-  email: "info@divinebanaras.com",
-  address: "Assi Ghat, Varanasi, Uttar Pradesh 221005, India",
+  email: "rs11292@gmail.com",
+  address: "Sunderpur, Varanasi, Uttar Pradesh 221005, India",
 
   social: {
     instagram: "https://instagram.com/divinebanaras",

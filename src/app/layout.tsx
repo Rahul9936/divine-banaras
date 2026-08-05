@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
@@ -30,7 +31,6 @@ export const metadata: Metadata = {
     "Varanasi sightseeing",
     "Kashi Vishwanath",
     "Ayodhya Ram Janmabhoomi",
-    "Pashupatinath Nepal",
     "Buddhist circuit",
     "Sarnath",
     "spiritual tours India",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Kashi tour packages",
     "Varanasi tour packages",
     "Places to visit in Varanasi",
-    "Kashi Ayodhya tour",
+    "Kashi Ayodhya tour"
   ],
   authors: [{ name: site.name }],
   openGraph: {
@@ -76,6 +76,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
+      <head>
+        <Script id="fullsession" strategy="afterInteractive">
+          {`
+            window.FUS_IS_IN_IFRAME = (window.top != window.self);
+            (function (m, n, t, l, x, p, o) {
+              window["_fus_host"] = l;
+              window["_site_id"] = p;
+              window["_fus_id"] = x;
+              o = n.createElement(t);
+              o.type = "text/javascript";
+              o.async = true;
+              o.src = "https://emitter.fullsession.io/RTSessions.js";
+              y = n.getElementsByTagName(t)[0];
+              y.parentNode.insertBefore(o, y);
+            })(window, document, "script", "fullsession.io", 'cus_ms9waejg89w');
+          `}
+        </Script>
+      </head>
       <body>
         <Header />
         <main>{children}</main>

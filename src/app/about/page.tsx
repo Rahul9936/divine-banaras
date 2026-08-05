@@ -59,7 +59,7 @@ export default function AboutPage() {
             <p className="leading-relaxed">
               From the first sermon of the Buddha at Sarnath, to the Jyotirlinga
               of Kashi Vishwanath, to Ram Lalla&rsquo;s darshan at Ayodhya Dham
-              and the sacred Pashupatinath in Nepal — we design journeys that are
+              and the Bodhgaya pilgrimage and Chitrakoot — we design journeys that are
               spiritually rich, comfortable, and completely hassle-free.
             </p>
             <p className="leading-relaxed">

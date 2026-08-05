@@ -154,41 +154,76 @@ export default async function TourDetailPage({
               </div>
             )}
 
-            {/* Itinerary */}
+            {/* Itinerary Section */}
             {tour.itinerary && tour.itinerary.length > 0 && (
               <div className="mt-10">
                 <h2 className="font-display text-2xl font-bold text-maroon">
                   Day-by-day Itinerary
                 </h2>
-                <ol className="mt-6 space-y-6 border-l-2 border-saffron/30 pl-6">
-                  {tour.itinerary.map((d) => {
-                    const activities = d.activities?.length
-                      ? d.activities
-                      : splitActivities(d.description);
+
+                <div className="mt-8 space-y-12">
+                  {tour.itinerary.map((d, dayIndex) => {
+                    // Fallback: If tour doesn't have structured 'stops', split description or activities
+                    const stops: Array<{ id?: string; title: string; description?: string; type?: string }> =
+                      (d as any).stops ||
+                      ((d as any).activities || splitActivities(d.description)).map((act: string, i: number) => ({
+                        id: String.fromCharCode(65 + i),
+                        title: act,
+                        description: undefined,
+                      }));
 
                     return (
-                      <li key={d.day} className="relative">
-                        <span className="absolute -left-[31px] top-1 flex h-4 w-4 items-center justify-center rounded-full bg-saffron ring-4 ring-cream" />
-                        <p className="text-xs font-semibold uppercase tracking-widest text-saffron">
-                          {d.day}
-                        </p>
-                        <h3 className="font-display text-lg font-semibold text-maroon">
-                          {d.title}
-                        </h3>
-                        {activities.length > 0 ? (
-                          <ul className="mt-3 space-y-2 rounded-xl bg-sand/50 p-3">
-                            {activities.map((activity, index) => (
-                              <li key={`${d.day}-${index}`} className="flex items-start gap-2 text-sm text-ink/75">
-                                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-saffron" />
-                                <span>{activity}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : null}
-                      </li>
+                      <div key={d.day} className="rounded-2xl bg-sand/30 p-6 border border-maroon/5 shadow-sm">
+                        {/* Day Header */}
+                        <div className="mb-6 pb-3 border-b border-saffron/20">
+                          <p className="text-xs font-bold uppercase tracking-widest text-saffron">
+                            {d.day}
+                          </p>
+                          <h3 className="font-display text-xl font-bold text-maroon mt-0.5">
+                            {d.title}
+                          </h3>
+                        </div>
+
+                        {/* Route Pin Timeline */}
+                        {stops.length > 0 && (
+                          <div className="relative pl-2">
+                            {/* Thick Continuous Vertical Route Line */}
+                            <div className="absolute left-[24px] top-4 bottom-4 w-2 bg-saffron rounded-full" />
+
+                            <div className="space-y-6 relative">
+                              {stops.map((stop, stopIndex) => {
+                                const isStart = stopIndex === 0;
+
+                                return (
+                                  <div key={stop.id || stopIndex} className="flex items-start gap-4 group">
+                                    {/* Dynamic Icon Badge (Hotel / Temple / Pin) */}
+                                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-maroon text-cream shadow-md ring-4 ring-cream">
+                                      <StopIcon stop={stop} />
+                                    </div>
+
+                                    {/* Label & Description Text */}
+                                    <div className="pt-1">
+                                      <h4 className="font-display font-bold text-base text-maroon leading-tight">
+                                        {isStart && !stop.title.toLowerCase().includes("starting")
+                                          ? `Starting location: ${stop.title}`
+                                          : stop.title}
+                                      </h4>
+                                      {stop.description && (
+                                        <p className="mt-1 text-sm text-ink/75 font-medium leading-relaxed">
+                                          {stop.description}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
-                </ol>
+                </div>
               </div>
             )}
 
@@ -278,6 +313,76 @@ function CheckIcon() {
         <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
+  );
+}
+
+{/* Component to render Hotel, Temple, or Pin Icon dynamically based on text */}
+function StopIcon({ stop }: { stop: { title: string; description?: string; type?: string } }) {
+  const combinedText = `${stop.type || ""} ${stop.title} ${stop.description || ""}`.toLowerCase();
+
+  const isHotel =
+    stop.type === "hotel" ||
+    combinedText.includes("hotel") ||
+    combinedText.includes("check-in") ||
+    combinedText.includes("check in") ||
+    combinedText.includes("overnight stay") ||
+    combinedText.includes("resort") ||
+    combinedText.includes("inn");
+
+  const isTemple =
+    stop.type === "temple" ||
+    combinedText.includes("temple") ||
+    combinedText.includes("mandir") ||
+    combinedText.includes("dham") ||
+    combinedText.includes("shrine") ||
+    combinedText.includes("stupa") ||
+    combinedText.includes("aarti");
+
+  if (isHotel) {
+    return (
+      <img
+        src="/hotel.png" // Path to your hotel icon in public folder
+        alt="Hotel"
+        className="h-7 w-7 object-contain"
+      />
+    );
+  }
+
+  if (isTemple) {
+    return (
+      <img
+        src="/temple.png" // Path to your temple icon in public folder
+        alt="Temple"
+        className="h-7 w-7 object-contain"
+      />
+    );
+  }
+
+  if (stop.type === "shopping" || combinedText.includes("shopping") || combinedText.includes("market")) {
+    return (
+      <img
+        src="/shopping-bag.png" // Path to your shopping icon in public folder
+        alt="Shopping"
+        className="h-7 w-7 object-contain"
+      />
+    );
+  }
+
+  if (stop.type === "transport" || combinedText.includes("transfer") || combinedText.includes("airport")) {
+    return (
+      <img
+        src="/transportation.png" // Path to your transport icon in public folder
+        alt="Transport"
+        className="h-7 w-7 object-contain"
+      />
+    );
+  }
+
+  /* Standard Location Pin Icon (Default) */
+  return (
+    <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+    </svg>
   );
 }
 
