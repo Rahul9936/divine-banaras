@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getFeaturedTours } from "@/data/tours";
-import { site } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 import TourCard from "@/components/TourCard";
 import InquiryForm from "@/components/InquiryForm";
 
@@ -21,8 +21,19 @@ export default function HomePageClient() {
   const router = useRouter();
   const featured = getFeaturedTours();
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const featuredToursRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedDest, setSelectedDest] = useState("all");
+
+  const scrollFeaturedTours = (direction: "previous" | "next") => {
+    const container = featuredToursRef.current;
+    if (!container) return;
+
+    container.scrollBy({
+      left: (direction === "next" ? 1 : -1) * container.clientWidth * 0.82,
+      behavior: "smooth",
+    });
+  };
 
   // Updated to accept an optional target destination ID
   const handleExploreClick = (targetDest?: string) => {
@@ -123,9 +134,9 @@ export default function HomePageClient() {
 
         <div className="container-page relative z-10 grid gap-10 py-16 lg:grid-cols-12 lg:items-center lg:py-24">
           <div className="lg:col-span-7 animate-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-xs font-medium text-marigold border border-white/20 mb-4">
-              <span className="flex text-amber-400">★ ★ ★ ★ ★</span>
-              <span className="text-cream/90">4.9/5 (500+ Devotees Guided)</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium text-marigold backdrop-blur-md mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-marigold" aria-hidden="true" />
+              <span className="text-cream/90">Locally rooted in Varanasi</span>
             </div>
 
             <h1 className="font-display text-4xl font-700 leading-tight sm:text-5xl lg:text-6xl text-cream drop-shadow">
@@ -133,7 +144,7 @@ export default function HomePageClient() {
             </h1>
 
             <p className="mt-3 max-w-xl text-base sm:text-lg leading-relaxed text-cream/90 drop-shadow-sm">
-              Seamless 2–3 day yatras & grand spiritual circuits across Kashi, Ayodhya, Prayagraj, and Bodhgaya with dedicated priest support & hassle-free darshan.
+              Thoughtfully planned 2–6 day yatras and spiritual circuits across Kashi, Ayodhya, Prayagraj and Bodhgaya.
             </p>
 
             <div className="mt-6 rounded-2xl bg-white/10 backdrop-blur-md p-4 sm:p-5 border border-white/20 shadow-2xl">
@@ -165,13 +176,16 @@ export default function HomePageClient() {
                 >
                   Explore {selectedDest !== "all" ? DESTINATIONS.find((d) => d.id === selectedDest)?.label : "All"} Tours →
                 </button>
+                <a href={site.phoneHref} className="btn border border-white/40 bg-white/10 text-white hover:bg-white hover:text-maroon focus:ring-white">
+                  Call our Varanasi team
+                </a>
               </div>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-cream/80">
-              <Stat value="2–7" label="Day itineraries" />
-              <Stat value="100%" label="Assisted darshan" />
-              <Stat value="4.9★" label="Traveller rating" />
+              <Stat value="2–6" label="Day itineraries" />
+              <Stat value="Varanasi" label="Local team base" />
+              <Stat value="Clear" label="Quotes & inclusions" />
             </div>
           </div>
 
@@ -264,26 +278,27 @@ export default function HomePageClient() {
         <div className="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start rounded-3xl bg-white/80 p-8 shadow-soft ring-1 ring-maroon/10">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
-              Request a quote
+              Plan with confidence
             </p>
             <h2 className="mt-4 font-display text-4xl font-700 text-maroon sm:text-5xl">
-              Book Spiritual Packages
+              Tell us where you&apos;d like to go
             </h2>
             <p className="mt-4 max-w-xl text-ink/70">
-              Get the right yatra plan, tailored guidance and a competitive price from Divine Banaras.
+              Share your travel plans and we&apos;ll help you understand the route, likely inclusions and next steps before you decide.
             </p>
             <div className="mt-8 space-y-4">
-              <FeatureRow text="Only trusted & verified agents" />
-              <FeatureRow text="Friendly customer support" />
-              <FeatureRow text="100% money-safe guarantee" />
-              <FeatureRow text="Secure & safe online transactions" />
+              <FeatureRow text="Clear routes and inclusions" />
+              <FeatureRow text="A locally based Varanasi team" />
+              <FeatureRow text="A tailored quote before booking" />
+              <FeatureRow text="Options shaped around your group and pace" />
             </div>
           </div>
           <div className="p-8">
             <div className="mb-6 rounded-3xl bg-saffron/10 px-5 py-5">
-              <h3 className="mt-3 text-2xl font-semibold text-maroon text-center">
-                Enter your details
+              <h3 className="text-2xl font-semibold text-center text-maroon">
+                Request a call about the Divine Triangle
               </h3>
+              <p className="mt-2 text-center text-sm leading-relaxed text-ink/65">Leave your name and phone number; we&apos;ll use them only to discuss this journey.</p>
             </div>
             <InquiryForm minimal defaultTour="Divine Triangle Tour Package" />
           </div>
@@ -300,14 +315,41 @@ export default function HomePageClient() {
                 Popular Yatras
               </h2>
             </div>
-            <Link href="/tours" className="btn-outline">
-              View all tours
-            </Link>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => scrollFeaturedTours("previous")}
+                aria-label="Show previous popular yatras"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-maroon/20 bg-white text-maroon transition-colors hover:bg-maroon hover:text-white focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollFeaturedTours("next")}
+                aria-label="Show next popular yatras"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-maroon/20 bg-white text-maroon transition-colors hover:bg-maroon hover:text-white focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <Link href="/tours" className="btn-outline">
+                View all tours
+              </Link>
+            </div>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            ref={featuredToursRef}
+            className="mt-10 flex items-stretch gap-6 overflow-x-auto pb-5 snap-x snap-mandatory scroll-smooth [scrollbar-width:none]"
+          >
             {featured.map((tour) => (
-              <TourCard key={tour.slug} tour={tour} />
+              <div key={tour.slug} className="flex w-[85vw] max-w-[360px] shrink-0 snap-start sm:w-[380px]">
+                <TourCard tour={tour} />
+              </div>
             ))}
           </div>
         </div>
@@ -324,23 +366,23 @@ export default function HomePageClient() {
           </div>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <Feature
-              title="Local Kashi roots"
-              text="Born and based in Varanasi, we know every ghat, gali and temple timing."
+              title="Local Varanasi team"
+              text="Plan with people who are based in and around Kashi."
               icon="M12 2l2.5 6H21l-5 4 2 7-6-4-6 4 2-7-5-4h6.5z"
             />
             <Feature
-              title="Assisted darshan"
-              text="Smooth temple entry and aarti arrangements so you focus on the divine."
+              title="Clear planning"
+              text="Review the route, inclusions and practical details before you travel."
               icon="M4 12a8 8 0 1 1 16 0M12 12v6M9 21h6"
             />
             <Feature
-              title="Handpicked stays"
-              text="Comfortable, clean hotels close to the ghats and temples."
+              title="Flexible journeys"
+              text="Discuss dates, group needs and the pace that works for your pilgrimage."
               icon="M3 21V9l9-6 9 6v12M9 21v-6h6v6"
             />
             <Feature
-              title="24×7 support"
-              text="A dedicated yatra manager on call throughout your journey."
+              title="Direct contact"
+              text="Call, WhatsApp or send an enquiry when you have a question."
               icon="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
             />
           </div>
@@ -365,6 +407,9 @@ export default function HomePageClient() {
                 </Link>
                 <a href={site.phoneHref} className="btn border border-white/60 text-white hover:bg-white/10 focus:ring-white">
                   Call {site.phone}
+                </a>
+                <a href={whatsappLink("Hello Divine Banaras, I would like help planning a spiritual journey.")} className="btn border border-white/60 text-white hover:bg-white/10 focus:ring-white">
+                  Chat on WhatsApp
                 </a>
               </div>
             </div>

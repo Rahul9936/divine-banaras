@@ -6,7 +6,7 @@ export default function TourCard({ tour }: { tour: Tour }) {
   return (
     <Link
       href={`/tours/${tour.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-maroon/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-maroon/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
     >
       <div className="relative">
         <PlaceholderImage

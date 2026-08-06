@@ -13,6 +13,10 @@ export default function Footer() {
             {site.tagline}. Curated spiritual journeys across Kashi, Ayodhya,
             Nepal and the Buddhist circuit.
           </p>
+          <div className="mt-5 border-t border-white/10 pt-4 text-xs leading-relaxed text-cream/65">
+            <p className="font-semibold uppercase tracking-[0.16em] text-saffron-light">Founder affiliations</p>
+            <p className="mt-2">Member of VTG, ADTOI and TWA.</p>
+          </div>
           <div className="mt-5 flex gap-3">
             <SocialLink href={site.social.instagram} label="Instagram">
               <path d="M12 8.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5zM17.5 6.5h.01M4 8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z" />

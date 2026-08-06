@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { site, whatsappLink } from "@/lib/site";
@@ -136,6 +137,37 @@ export default function AboutPage() {
       </section>
 
       <section className="section py-14 sm:py-16">
+        <div className="container-page">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Professional affiliations</p>
+            <h2 className="mt-3 font-display text-3xl font-700 text-maroon sm:text-4xl">
+              Connected to the travel community
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-ink/70 sm:text-base">
+              The founder of Divine Banaras is an active member of the following travel and tourism associations.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            <Affiliation
+              acronym="VTG"
+              name="Varanasi Tourism Guild"
+              iconSrc="/vtg.jpeg"
+            />
+            <Affiliation
+              acronym="ADTOI"
+              name="Association of Domestic Tour Operators of India"
+              iconSrc="/adtoi.jpeg"
+            />
+            <Affiliation
+              acronym="TWA"
+              name="Tourism Welfare Association"
+              iconSrc="/twa.jpeg"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="section py-14 sm:py-16">
         <div className="container-page grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <div>
             <p className="eyebrow">Find our local base</p>
@@ -207,6 +239,19 @@ function Step({ number, title, text }: { number: string; title: string; text: st
       <p className="text-xs font-bold tracking-[0.18em] text-saffron-dark">{number}</p>
       <h3 className="mt-3 font-display text-2xl font-700 text-maroon">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-ink/70">{text}</p>
+    </article>
+  );
+}
+
+function Affiliation({ acronym, name, iconSrc }: { acronym: string; name: string; iconSrc: string }) {
+  return (
+    <article className="rounded-2xl border border-maroon/10 bg-white p-6 text-center shadow-sm">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-sand text-maroon shadow-sm">
+        <Image src={iconSrc} alt={name} width={32} height={32} className="h-8 w-8 object-contain" />
+      </div>
+      <p className="font-display text-4xl font-700 text-saffron-dark">{acronym}</p>
+      <h3 className="mt-3 font-display text-xl font-700 text-maroon">{name}</h3>
+      <p className="mt-3 text-sm leading-relaxed text-ink/65">Founder is a member</p>
     </article>
   );
 }
