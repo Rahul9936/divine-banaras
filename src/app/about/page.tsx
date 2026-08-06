@@ -46,7 +46,6 @@ const commitments = [
 ];
 
 const officeMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`;
-const officeMapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(site.address)}&output=embed`;
 
 export default function AboutPage() {
   return (
@@ -136,7 +135,32 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Meet the Founder Section */}
       <section className="section py-14 sm:py-16">
+        <div className="container-page">
+          <div className="rounded-2xl border border-maroon/10 bg-white p-8 shadow-card sm:p-12">
+            <div className="max-w-3xl">
+              <p className="eyebrow">Leadership & Impact</p>
+              <h2 className="mt-3 font-display text-3xl font-700 text-maroon sm:text-4xl">
+                Meet our Founder
+              </h2>
+              <div className="mt-6 space-y-4 text-ink/80 leading-relaxed">
+                <p className="text-lg font-semibold text-saffron-dark">
+                  Amrita Singh
+                </p>
+                <p>
+                  Amrita Singh founded Divine Banaras with a vision to connect pilgrims to the spiritual heritage of Varanasi and beyond through authentic, thoughtful travel experiences. 
+                </p>
+                <p>
+                  Beyond her work in travel, Amrita serves as a Project Coordinator at the <strong>Holy City Rickshaw Project</strong>, an initiative dedicated to empowering underprivileged women in the region by creating sustainable livelihood opportunities and independence.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-sand/20 py-14 sm:py-16">
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Professional affiliations</p>
