@@ -35,7 +35,6 @@ export default function HomePageClient() {
     });
   };
 
-  // Updated to accept an optional target destination ID
   const handleExploreClick = (targetDest?: string) => {
     const destToNavigate = targetDest || selectedDest;
 
@@ -120,115 +119,178 @@ export default function HomePageClient() {
 
   return (
     <>
-      <section className="relative overflow-hidden text-cream bg-maroon-dark min-h-[85vh] flex items-center">
-        <div className="absolute inset-0">
+      {/* ---------------- Hero Section (Split Layout) ---------------- */}
+      <section className="relative overflow-hidden bg-[#0A1118] text-white py-12 lg:py-20 border-b-4 border-[#D4AF37]">
+        {/* Background Overlay */}
+        {/* <div className="absolute inset-0 z-0 opacity-15"> */}
           <Image
-            src="/banner.png"
-            alt="Banaras ghats and temple scenery"
-            fill
-            priority
-            className="object-cover opacity-50 scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-maroon-dark via-maroon-dark/60 to-transparent" />
-        </div>
+                src="/varanasi_ghats_hd_bg.jpg"
+                alt="Varanasi ghats background"
+                fill
+                className="absolute inset-0 object-cover opacity-40"
+                priority
+              />
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-[#0A1118] via-[#0A1118]/90 to-[#0A1118]/70" />
+        </div> */}
 
-        <div className="container-page relative z-10 grid gap-10 py-16 lg:grid-cols-12 lg:items-center lg:py-24">
-          <div className="lg:col-span-7 animate-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium text-marigold backdrop-blur-md mb-4">
-              <span className="h-1.5 w-1.5 rounded-full bg-marigold" aria-hidden="true" />
-              <span className="text-cream/90">Locally rooted in Varanasi</span>
-            </div>
+        <div className="container-page relative z-10 max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
-            <h1 className="font-display text-4xl font-700 leading-tight sm:text-5xl lg:text-6xl text-cream drop-shadow">
-              Walk the sacred path of <span className="text-marigold">Bharat</span>
-            </h1>
+            {/* Left Column: Data, Branding & Navigation Controls */}
+            <div className="relative lg:col-span-7 flex flex-col justify-center text-left space-y-6 overflow-hidden rounded-3xl">
+              
+              {/* <div className="absolute inset-0 bg-gradient-to-r from-[#0A1118]/95 via-[#0A1118]/70 to-transparent" /> */}
 
-            <p className="mt-3 max-w-xl text-base sm:text-lg leading-relaxed text-cream/90 drop-shadow-sm">
-              Thoughtfully planned 2–6 day yatras and spiritual circuits across Kashi, Ayodhya, Prayagraj and Bodhgaya.
-            </p>
+              <div className="relative z-10 space-y-6">
+                {/* Brand Badge */}
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-3.5 py-1 text-xs font-semibold text-[#F3C623] backdrop-blur-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#F3C623]" aria-hidden="true"></span>
+                  <span>Locally rooted in Varanasi</span>
+                </div>
 
-            <div className="mt-6 rounded-2xl bg-white/10 backdrop-blur-md p-4 sm:p-5 border border-white/20 shadow-2xl">
-              <p className="text-xs font-semibold uppercase tracking-wider text-marigold mb-3">
-                Select Your Destination
-              </p>
+                {/* Main Headline */}
+                <div>
+                  <h1 className="font-display text-3xl sm:text-5xl lg:text-5xl font-extrabold uppercase tracking-wide text-white leading-tight">
+                    One Call For <span className="text-[#F3C623]">Complete Varanasi Trip</span>
+                  </h1>
+                  <p className="mt-2 text-[#D4AF37] font-medium text-sm sm:text-base italic tracking-wider">
+                    — WE TAKE CARE OF EVERYTHING —
+                  </p>
+                </div>
 
-              <div className="flex flex-wrap gap-2 mb-2">
-                {DESTINATIONS.map((dest) => (
-                  <button
-                    key={dest.id}
-                    type="button"
-                    onClick={() => setSelectedDest(dest.id)}
-                    className={`rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-all ${selectedDest === dest.id
-                        ? "bg-marigold text-maroon-dark shadow-md scale-105 font-semibold"
-                        : "bg-black/30 text-cream/80 hover:bg-black/50 hover:text-white"
-                      }`}
-                  >
-                    {dest.label}
-                  </button>
-                ))}
+                {/* Destination Selection Card */}
+                <div className="rounded-2xl bg-white/5 backdrop-blur-md p-5 border border-[#D4AF37]/30 shadow-xl">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-[#F3C623] mb-3">
+                    Select Your Pilgrimage Destination
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {DESTINATIONS.map((dest) => (
+                      <button
+                        key={dest.id}
+                        type="button"
+                        onClick={() => setSelectedDest(dest.id)}
+                        className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all cursor-pointer ${selectedDest === dest.id
+                          ? "bg-[#D4AF37] text-[#0A1118] shadow-md scale-105"
+                          : "bg-black/40 text-white/80 hover:bg-black/60 border border-white/10"
+                          }`}
+                      >
+                        {dest.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="text-left mb-4">
+                    <p className="text-[#D4AF37] font-serif italic text-base">Let Us Make Your Yatra</p>
+                    <p className="text-xs text-white/70">Memorable & Comfortable</p>
+                  </div>
+
+                  {/* Call To Action Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleExploreClick()}
+                      className="flex-1 py-3 px-4 bg-gradient-to-r from-[#D4AF37] to-[#F3C623] text-[#0A1118] font-bold rounded-xl text-center text-sm hover:brightness-110 transition-all cursor-pointer shadow-lg"
+                    >
+                      Explore {selectedDest !== "all" ? DESTINATIONS.find((d) => d.id === selectedDest)?.label : "All"} Packages →
+                    </button>
+                    <a
+                      href={whatsappLink("Hello Divine Banaras, I would like to inquire about tour packages.")}
+                      className="py-3 px-5 bg-white/10 hover:bg-white/20 text-white font-medium text-sm rounded-xl border border-white/20 text-center transition-colors flex items-center justify-center gap-2"
+                    >
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                  </div>
+                  {/* Quick Direct Call Banner */}
+                  <div className="flex flex-col sm:flex-row gap-3 mt-3">
+                    <a
+                      href={site.phoneHref}
+                      className="py-3 px-5 bg-white/10 hover:bg-white/20 text-white font-medium text-sm rounded-xl border border-white/20 text-center transition-colors flex items-center justify-center gap-2"
+                    >
+                      <div className="text-xl bg-[#D4AF37] text-[#0A1118] p-2.5 rounded-full group-hover:scale-105 transition-transform">
+                        📞
+                      </div>
+                      <div>
+                        <span className="block text-[10px] uppercase font-extrabold tracking-wider text-[#D4AF37] w-full">
+                          Call Our Local Varanasi Team
+                        </span>
+                        <span className="text-lg font-black text-white">{site.phone || "7310079100"}</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
-
-              <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                <button
-                  type="button"
-                  onClick={() => handleExploreClick()}
-                  className="btn-primary text-center py-3 text-sm flex-1 font-semibold shadow-lg hover:shadow-marigold/20 cursor-pointer"
-                >
-                  Explore {selectedDest !== "all" ? DESTINATIONS.find((d) => d.id === selectedDest)?.label : "All"} Tours →
-                </button>
-                <a href={site.phoneHref} className="btn border border-white/40 bg-white/10 text-white hover:bg-white hover:text-maroon focus:ring-white">
-                  Call our Varanasi team
-                </a>
-              </div>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-cream/80">
-              <Stat value="2–6" label="Day itineraries" />
-              <Stat value="Varanasi" label="Local team base" />
-              <Stat value="Clear" label="Quotes & inclusions" />
+            {/* Right Column: Dynamic Image Carousel */}
+            <div className="lg:col-span-5 w-full">
+              <HeroCarousel onSelectDest={handleExploreClick} />
             </div>
+
           </div>
 
-          {/* Hero Image Collage with clickable HeroTile components */}
-          <div className="lg:col-span-5 block">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mt-8 space-y-4">
-                <HeroTile
-                  title="Kashi Vishwanath"
-                  imageSrc="/kashi.jpg"
-                  destId="kashi"
-                  onClick={handleExploreClick}
-                />
-                <HeroTile
-                  title="Ganga Aarti"
-                  imageSrc="/ganga-aarti.jpg"
-                  destId="kashi"
-                  tall
-                  onClick={handleExploreClick}
-                />
-              </div>
-              <div className="space-y-4">
-                <HeroTile
-                  title="Ayodhya Dham"
-                  imageSrc="/ram-mandir.jpg"
-                  destId="ayodhya"
-                  tall
-                  onClick={handleExploreClick}
-                />
-                <HeroTile
-                  title="Bodhgaya"
-                  imageSrc="/bodhgaya.jpg"
-                  destId="bodhgaya"
-                  onClick={handleExploreClick}
-                />
-              </div>
-            </div>
+          {/* 4 Core Offerings Grid (Angled/Bordered Cards from Poster) */}
+          <div className="mt-4 text-center">
+            <h2 className="text-2xl font-display font-bold text-[#F3C623]">Core Services</h2>
+            <p className="mt-2 text-sm text-[#F3C623]/80">Explore the key services that make your Varanasi pilgrimage smooth and memorable.</p>
           </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 py-4">
+            <PosterServiceCard
+              title="AIRPORT PICKUP & DROP"
+              subtitle="On Time | Safe | Hassle Free"
+              imageSrc="/airport_service.jpg"
+              icon="✈️"
+              destId="ayodhya"
+              onClick={handleExploreClick}
+            />
+
+            <PosterServiceCard
+              title="HOTEL BOOKING"
+              subtitle="Budget to Luxury Best Stay Options"
+              imageSrc="/hotel_service.jpg"
+              icon="🏨"
+              destId="bodhgaya"
+              onClick={handleExploreClick}
+            />
+
+            <PosterServiceCard
+              title="CAB SERVICE"
+              subtitle="Comfortable & Safe Rides"
+              imageSrc="/cab_service.jpg"
+              icon="🚗"
+              destId="kashi"
+              onClick={handleExploreClick}
+
+            />
+
+            <PosterServiceCard
+              title="VIP DARSHAN"
+              subtitle="Skip the Line | Divine Experience"
+              imageSrc="/vip_darshan_service.jpg"
+              badge="VIP DARSHAN"
+              icon="🛕"
+              destId="kashi"
+              onClick={handleExploreClick}
+
+            />
+
+          </div>
+          {/* Value Points Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 py-4 px-4 rounded-xl bg-[#0F1B26] border border-[#D4AF37]/30 text-center">
+            <ValueIcon title="GANGA AARTI" desc="Spiritual Vibes" icon="🪔" />
+            <ValueIcon title="AYODHYA TOUR" desc="Shri Ram Darshan" icon="🏛️" />
+            <ValueIcon title="VERIFIED" desc="Trusted Services" icon="🛡️" />
+            <ValueIcon title="EXPERIENCED" desc="Supportive Team" icon="👥" />
+            <ValueIcon title="BEST PRICE" desc="Guaranteed Value" icon="🏷️" />
+            <ValueIcon title="24x7 SUPPORT" desc="Always Here" icon="🎧" />
+          </div>
+
         </div>
       </section>
 
       {/* ---------------- The Divine Triangle ---------------- */}
-      <section className="section">
+      {/* <section className="section">
         <div className="container-page text-center">
           <p className="eyebrow">Our Signature Journey</p>
           <h2 className="mt-3 font-display text-3xl font-700 text-maroon sm:text-4xl">
@@ -271,39 +333,7 @@ export default function HomePageClient() {
             className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
         </div>
-      </section>
-
-      {/* ---------------- Quick Enquiry ---------------- */}
-      <section className="section bg-[#f07954]">
-        <div className="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start rounded-3xl bg-white/80 p-8 shadow-soft ring-1 ring-maroon/10">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
-              Plan with confidence
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-700 text-maroon sm:text-5xl">
-              Tell us where you&apos;d like to go
-            </h2>
-            <p className="mt-4 max-w-xl text-ink/70">
-              Share your travel plans and we&apos;ll help you understand the route, likely inclusions and next steps before you decide.
-            </p>
-            <div className="mt-8 space-y-4">
-              <FeatureRow text="Clear routes and inclusions" />
-              <FeatureRow text="A locally based Varanasi team" />
-              <FeatureRow text="A tailored quote before booking" />
-              <FeatureRow text="Options shaped around your group and pace" />
-            </div>
-          </div>
-          <div className="p-8">
-            <div className="mb-6 rounded-3xl bg-saffron/10 px-5 py-5">
-              <h3 className="text-2xl font-semibold text-center text-maroon">
-                Request a call about the Divine Triangle
-              </h3>
-              <p className="mt-2 text-center text-sm leading-relaxed text-ink/65">Leave your name and phone number; we&apos;ll use them only to discuss this journey.</p>
-            </div>
-            <InquiryForm minimal defaultTour="Divine Triangle Tour Package" />
-          </div>
-        </div>
-      </section>
+      </section> */}
 
       {/* ---------------- Featured Tours ---------------- */}
       <section className="section bg-sand/50">
@@ -354,6 +384,40 @@ export default function HomePageClient() {
           </div>
         </div>
       </section>
+
+      {/* ---------------- Quick Enquiry ---------------- */}
+      <section className="section bg-[#f07954]">
+        <div className="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start rounded-3xl bg-white/80 p-8 shadow-soft ring-1 ring-maroon/10">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-saffron">
+              Plan with confidence
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-700 text-maroon sm:text-5xl">
+              Tell us where you&apos;d like to go
+            </h2>
+            <p className="mt-4 max-w-xl text-ink/70">
+              Share your travel plans and we&apos;ll help you understand the route, likely inclusions and next steps before you decide.
+            </p>
+            <div className="mt-8 space-y-4">
+              <FeatureRow text="Clear routes and inclusions" />
+              <FeatureRow text="A locally based Varanasi team" />
+              <FeatureRow text="A tailored quote before booking" />
+              <FeatureRow text="Options shaped around your group and pace" />
+            </div>
+          </div>
+          <div className="p-8">
+            <div className="mb-6 rounded-3xl bg-saffron/10 px-5 py-5">
+              <h3 className="text-2xl font-semibold text-center text-maroon">
+                Request a call about the Divine Triangle
+              </h3>
+              <p className="mt-2 text-center text-sm leading-relaxed text-ink/65">Leave your name and phone number; we&apos;ll use them only to discuss this journey.</p>
+            </div>
+            <InquiryForm minimal defaultTour="Divine Triangle Tour Package" />
+          </div>
+        </div>
+      </section>
+
+      
 
       {/* ---------------- Why Divine Banaras ---------------- */}
       <section className="section">
@@ -420,46 +484,115 @@ export default function HomePageClient() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+{/* ---------------- Hero Section Image Carousel Component ---------------- */ }
+
+function HeroCarousel({ onSelectDest }: { onSelectDest: (destId: string) => void }) {
+  const slides = [
+    {
+      title: "Kashi Vishwanath Temple",
+      subtitle: "VIP Darshan & Temple Assist",
+      image: "/kashi.jpg",
+      destId: "kashi",
+      badge: "VIP DARSHAN",
+    },
+    {
+      title: "Ganga Aarti Boat Ride",
+      subtitle: "Feel the Divine Energy at Dashashwamedh",
+      image: "/v7.jpg",
+      destId: "kashi",
+      badge: "MUST EXPERIENCE",
+    },
+    {
+      title: "Shri Ram Janmabhoomi",
+      subtitle: "Ayodhya Dham Day Tours & Cab Service",
+      image: "/ram-mandir.jpg",
+      destId: "ayodhya",
+      badge: "AYODHYA TOUR",
+    },
+    {
+      title: "Bodhgaya & Prayagraj",
+      subtitle: "Seamless Outstation Transfers & Stays",
+      image: "/bodhgaya.jpg",
+      destId: "bodhgaya",
+      badge: "FULL CIRCUIT",
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   return (
-    <div>
-      <span className="font-display text-2xl font-700 text-marigold">{value}</span>
-      <span className="ml-2">{label}</span>
+    <div className="relative w-full h-[380px] sm:h-[440px] rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-2xl group">
+      {slides.map((slide, idx) => (
+        <div
+          key={slide.title}
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+        >
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            className="object-cover"
+            priority={idx === 0}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1118] via-[#0A1118]/20 to-transparent" />
+
+          <div className="absolute bottom-0 inset-x-0 p-6 flex flex-col justify-end text-left">
+            <span className="self-start bg-[#D4AF37] text-[#0A1118] text-[10px] font-black uppercase px-2.5 py-1 rounded-full mb-2 shadow-md">
+              ★ {slide.badge} ★
+            </span>
+            <h3 className="font-display font-bold text-2xl text-white tracking-wide drop-shadow-md">
+              {slide.title}
+            </h3>
+            <p className="text-xs text-white/80 mt-1 mb-3">
+              {slide.subtitle}
+            </p>
+            <button
+              type="button"
+              onClick={() => onSelectDest(slide.destId)}
+              className="self-start text-xs font-bold text-[#F3C623] hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+            >
+              Explore Package Details →
+            </button>
+          </div>
+        </div>
+      ))}
+
+      {/* Slide Navigation Controls */}
+      <div className="absolute bottom-4 right-4 z-20 flex gap-1.5">
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setCurrentIndex(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`h-2 rounded-full transition-all cursor-pointer ${idx === currentIndex ? "w-6 bg-[#D4AF37]" : "w-2 bg-white/50 hover:bg-white"
+              }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-function HeroTile({
-  title,
-  imageSrc,
-  destId,
-  tall = false,
-  onClick,
-}: {
-  title: string;
-  imageSrc: string;
-  destId: string;
-  tall?: boolean;
-  onClick: (destId: string) => void;
-}) {
+{/* ---------------- Utility Components ---------------- */ }
+
+function ValueIcon({ title, desc, icon }: { title: string; desc: string; icon: string }) {
   return (
-    <button
-      type="button"
-      onClick={() => onClick(destId)}
-      className={`group relative flex w-full text-left items-end overflow-hidden rounded-2xl p-4 shadow-soft transition-transform duration-300 hover:scale-[1.03] cursor-pointer focus:outline-none focus:ring-2 focus:ring-marigold ${tall ? "h-56" : "h-40"
-        }`}
-    >
-      <Image
-        src={imageSrc}
-        alt={title}
-        fill
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-maroon/20 group-hover:bg-maroon/10 transition-colors" />
-      <span className="relative text-sm font-semibold text-white drop-shadow bg-saffron-light/80 rounded-xl px-2.5 py-1 backdrop-blur-sm group-hover:bg-marigold group-hover:text-maroon-dark transition-colors">
-        {title}
-      </span>
-    </button>
+    <div className="flex flex-col items-center justify-center p-2">
+      <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/40 flex items-center justify-center text-xl mb-2">
+        {icon}
+      </div>
+      <h4 className="text-xs font-bold text-[#F3C623] tracking-wider uppercase">{title}</h4>
+      <p className="text-[10px] text-white/70 mt-0.5">{desc}</p>
+    </div>
   );
 }
 
@@ -543,23 +676,43 @@ function FeatureRow({ text }: { text: string }) {
   );
 }
 
-function Testimonial({
-  quote,
-  name,
-  from,
+function PosterServiceCard({
+  title,
+  subtitle,
+  imageSrc,
+  icon,
+  badge,
+  destId,
+  onClick,
 }: {
-  quote: string;
-  name: string;
-  from: string;
+  title: string;
+  subtitle: string;
+  imageSrc: string;
+  icon: string;
+  badge?: string;
+  destId: string;
+  onClick: (destId: string) => void;
 }) {
   return (
-    <figure className="rounded-2xl bg-white/5 p-7 ring-1 ring-white/10">
-      <div className="text-marigold" aria-hidden="true">★★★★★</div>
-      <blockquote className="mt-3 text-cream/90">&ldquo;{quote}&rdquo;</blockquote>
-      <figcaption className="mt-4 text-sm">
-        <span className="font-semibold text-white">{name}</span>
-        <span className="text-cream/60"> · {from}</span>
-      </figcaption>
-    </figure>
+    <div className="group relative  rounded-xl overflow-hidden border-2 border-[#D4AF37]/50 hover:border-[#D4AF37] transition-all cursor-pointer shadow-xl p-2">
+      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+        <Image
+          src={imageSrc}
+          alt={title}
+          fill
+          // 1. Force Next.js to serve a high-density image variant (~1200px) on mobile
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          // 2. Increase compression quality from default 75 to 95 for sharp edges & text
+          quality={95}
+          // 3. Mark as priority so mobile browsers load high-res immediately
+          priority
+          // 4. Add will-change-transform to prevent Mobile Safari subpixel raster blur
+          className="object-cover transition-transform duration-500  will-change-transform"
+        />
+        <div className="" />
+      </div>
+    </div>
+
   );
+
 }

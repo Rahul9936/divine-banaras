@@ -3,9 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTour, tours } from "@/data/tours";
 import { site, whatsappLink } from "@/lib/site";
-import PlaceholderImage from "@/components/PlaceholderImage";
 import InquiryForm from "@/components/InquiryForm";
-import HeroCarousel from "@/components/HeroCarousel";
+import HeroGallery from "@/components/HeroGallery";
 
 export function generateStaticParams() {
   return tours.map((t) => ({ slug: t.slug }));
@@ -87,43 +86,39 @@ export default async function TourDetailPage({
   const tourTitleClean = tour.title.split("—")[0].trim();
   const waMessage = `Namaste! I'm interested in the "${tourTitleClean}" (${tour.duration}) tour. Please share details.`;
 
-  // Support both `images` array (if present in your tour model) or single `imageSrc`
   const galleryImages: string[] =
     (tour as any).images && Array.isArray((tour as any).images) && (tour as any).images.length > 0
       ? (tour as any).images
       : [tour.imageSrc];
 
-  const hasMultipleImages = galleryImages.length > 1;
-
   return (
     <>
-      {/* Hero Section: Conditional Carousel or Banner */}
-      <section className="relative overflow-hidden">
-        {hasMultipleImages ? (
-          <HeroCarousel images={galleryImages} label={tour.category} />
-        ) : (
-          <PlaceholderImage
-            imageSrc={tour.imageSrc}
-            className="h-72 w-full sm:h-96"
-            label={tour.category}
-          />
-        )}
-
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-maroon-dark/80 via-maroon-dark/30 to-transparent" />
-        <div className="container-page absolute inset-x-0 bottom-0 pointer-events-none">
-          <div className="pb-8 text-cream pointer-events-auto">
-            <Link href="/tours" className="text-sm text-cream/80 hover:text-white">
-              ← All tours
-            </Link>
-            <h1 className="mt-2 max-w-3xl font-display text-3xl font-bold sm:text-4xl lg:text-5xl">
-              {tour.title}
-            </h1>
-            <p className="mt-2 max-w-2xl text-cream/85">{tour.subtitle}</p>
-          </div>
+      {/* Title Header Section */}
+      <section className="pt-6 pb-2">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Link
+            href="/tours"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-maroon/70 hover:text-maroon transition-colors mb-2"
+          >
+            ← Back to all tours
+          </Link>
+          <h1 className="font-display text-3xl font-bold sm:text-4xl lg:text-5xl text-maroon leading-tight">
+            {tour.title}
+          </h1>
+          <p className="mt-1 text-base text-ink/70 font-medium max-w-3xl">
+            {tour.subtitle}
+          </p>
         </div>
       </section>
 
-      <section className="section">
+      {/* Grid Image Hero with Modal Lightbox */}
+      <HeroGallery
+        images={galleryImages}
+        title={tour.title}
+        category={tour.category}
+      />
+
+      <section className="section mt-8">
         <div className="container-page grid gap-12 lg:grid-cols-[1fr_360px]">
           {/* Main content */}
           <div>
@@ -162,8 +157,7 @@ export default async function TourDetailPage({
                 </h2>
 
                 <div className="mt-8 space-y-12">
-                  {tour.itinerary.map((d, dayIndex) => {
-                    // Fallback: If tour doesn't have structured 'stops', split description or activities
+                  {tour.itinerary.map((d) => {
                     const stops: Array<{ id?: string; title: string; description?: string; type?: string }> =
                       (d as any).stops ||
                       ((d as any).activities || splitActivities(d.description)).map((act: string, i: number) => ({
@@ -174,7 +168,6 @@ export default async function TourDetailPage({
 
                     return (
                       <div key={d.day} className="rounded-2xl bg-sand/30 p-6 border border-maroon/5 shadow-sm">
-                        {/* Day Header */}
                         <div className="mb-6 pb-3 border-b border-saffron/20">
                           <p className="text-xs font-bold uppercase tracking-widest text-saffron">
                             {d.day}
@@ -184,10 +177,8 @@ export default async function TourDetailPage({
                           </h3>
                         </div>
 
-                        {/* Route Pin Timeline */}
                         {stops.length > 0 && (
                           <div className="relative pl-2">
-                            {/* Thick Continuous Vertical Route Line */}
                             <div className="absolute left-[24px] top-4 bottom-4 w-2 bg-saffron rounded-full" />
 
                             <div className="space-y-6 relative">
@@ -196,12 +187,10 @@ export default async function TourDetailPage({
 
                                 return (
                                   <div key={stop.id || stopIndex} className="flex items-start gap-4 group">
-                                    {/* Dynamic Icon Badge (Hotel / Temple / Pin) */}
                                     <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-maroon text-cream shadow-md ring-4 ring-cream">
                                       <StopIcon stop={stop} />
                                     </div>
 
-                                    {/* Label & Description Text */}
                                     <div className="pt-1">
                                       <h4 className="font-display font-bold text-base text-maroon leading-tight">
                                         {isStart && !stop.title.toLowerCase().includes("starting")
@@ -316,7 +305,6 @@ function CheckIcon() {
   );
 }
 
-{/* Component to render Hotel, Temple, or Pin Icon dynamically based on text */}
 function StopIcon({ stop }: { stop: { title: string; description?: string; type?: string } }) {
   const combinedText = `${stop.type || ""} ${stop.title} ${stop.description || ""}`.toLowerCase();
 
@@ -339,46 +327,21 @@ function StopIcon({ stop }: { stop: { title: string; description?: string; type?
     combinedText.includes("aarti");
 
   if (isHotel) {
-    return (
-      <img
-        src="/hotel.png" // Path to your hotel icon in public folder
-        alt="Hotel"
-        className="h-7 w-7 object-contain"
-      />
-    );
+    return <img src="/hotel.png" alt="Hotel" className="h-7 w-7 object-contain" />;
   }
 
   if (isTemple) {
-    return (
-      <img
-        src="/temple.png" // Path to your temple icon in public folder
-        alt="Temple"
-        className="h-7 w-7 object-contain"
-      />
-    );
+    return <img src="/temple.png" alt="Temple" className="h-7 w-7 object-contain" />;
   }
 
   if (stop.type === "shopping" || combinedText.includes("shopping") || combinedText.includes("market")) {
-    return (
-      <img
-        src="/shopping-bag.png" // Path to your shopping icon in public folder
-        alt="Shopping"
-        className="h-7 w-7 object-contain"
-      />
-    );
+    return <img src="/shopping-bag.png" alt="Shopping" className="h-7 w-7 object-contain" />;
   }
 
   if (stop.type === "transport" || combinedText.includes("transfer") || combinedText.includes("airport")) {
-    return (
-      <img
-        src="/transportation.png" // Path to your transport icon in public folder
-        alt="Transport"
-        className="h-7 w-7 object-contain"
-      />
-    );
+    return <img src="/transportation.png" alt="Transport" className="h-7 w-7 object-contain" />;
   }
 
-  /* Standard Location Pin Icon (Default) */
   return (
     <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />

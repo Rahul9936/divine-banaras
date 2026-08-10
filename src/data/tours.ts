@@ -44,6 +44,7 @@ export interface Tour {
   itinerary: ItineraryDay[];
   includes: string[];
   excludes: string[];
+  popularOrder: number; // popularOrder in Popular Yatras
 }
 
 export const tours: Tour[] = [
@@ -59,6 +60,7 @@ export const tours: Tour[] = [
     "stay": "1-night stay included",
     "transport": "Private local vehicle",
     "featured": true,
+    "popularOrder": 1, // Popular Yatras popularOrder
     "imageSrc": "/ganga-aarti.jpg",
     "images": ["/ganga-aarti.jpg", "/vt-bhu.jpg", "/kashi-vishwanath-temple.jpg", "/sankat-mochan.jpg", "/sarnath.jpg"],
     "gradient": "bg-sunrise-gradient",
@@ -138,6 +140,7 @@ export const tours: Tour[] = [
     "subtitle": "A rich cultural and spiritual experience covering three of the most revered religious cities of India",
     "category": "Spiritual Circuit",
     "duration": "3 Days / 2 Nights",
+    "popularOrder": 2, // Popular Yatras popularOrder
     "places": [
       "Varanasi",
       "Prayagraj",
@@ -147,7 +150,7 @@ export const tours: Tour[] = [
     "startsIn": "Starts in Varanasi",
     "stay": "Hotel stay except Ayodhya",
     "transport": "Intercity transport included",
-    "imageSrc": "/divine-triangle.png",
+    "imageSrc": "/divine-triangle.jpg ",
     "images": [
       "/kashi.jpg",
       "/sangam.jpg",
@@ -289,6 +292,7 @@ export const tours: Tour[] = [
     "subtitle": "A delightful spiritual journey exploring the ethereal vibes, ancient heritage, and sacred rituals of Gaya and Kashi",
     "category": "Buddhist Circuit",
     "duration": "3 Days / 2 Nights",
+    "popularOrder": 3, // Popular Yatras popularOrder
     "places": [
       "Gaya",
       "Varanasi"
@@ -449,6 +453,7 @@ export const tours: Tour[] = [
     "subtitle": "A grand 6-day spiritual odyssey traversing the holiest shrines and historical landmarks of Uttar Pradesh",
     "category": "Spiritual Circuit",
     "duration": "6 Days / 5 Nights",
+    "popularOrder": 5, // Popular Yatras popularOrder
     "places": [
       "Varanasi",
       "Sarnath",
@@ -680,6 +685,7 @@ export const tours: Tour[] = [
     "subtitle": "A sacred and meticulously guided ritual journey across the holy trithas of Varanasi, Prayagraj, and Gaya",
     "category": "Buddhist Circuit",
     "duration": "4 Days / 3 Nights",
+    "popularOrder": 4, // Popular Yatras popularOrder
     "places": [
       "Varanasi",
       "Prayagraj",
@@ -845,13 +851,15 @@ export function getTour(slug: string): Tour | undefined {
 }
 
 export function getFeaturedTours(): Tour[] {
-  return tours.filter((t) => t.featured);
+  return tours
+    .filter((t) => t.featured)
+    .sort((a, b) => a.popularOrder - b.popularOrder);
 }
 
 export const categories: TourCategory[] = [
-  "Spiritual Circuit",
-  "Buddhist Circuit",
   "Cultural Heritage",
+  "Spiritual Circuit",
+  "Buddhist Circuit", 
 ];
 
 /** Format an INR amount like ₹42,999 */
