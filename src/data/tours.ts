@@ -49,6 +49,75 @@ export interface Tour {
 
 export const tours: Tour[] = [
   {
+    "slug": "dev-diwali-varanasi-special-tour",
+    "title": "Dev Diwali Varanasi Special Tour",
+    "subtitle": "Celebrate Kartik Purnima amid the illuminated ghats, sacred rituals, and grand Ganga Aarti of Kashi",
+    "category": "Cultural Heritage",
+    "duration": "1 Day",
+    "places": ["Varanasi", "Dashashwamedh Ghat", "Assi Ghat"],
+    "priceFrom": 0,
+    "startsIn": "Starts in Varanasi",
+    "stay": "No overnight stay",
+    "transport": "Private local vehicle",
+    "featured": true,
+    "popularOrder": 6,
+    "imageSrc": "/dev-diwali.jpg",
+    "images": ["/dev-diwali.jpg", "/ganga-aarti.jpg", "/v7.jpg", "/kashi-vishwanath-temple.jpg"],
+    "gradient": "bg-sunrise-gradient",
+    "summary": "Experience Dev Diwali in Varanasi, when the ghats glow with countless earthen lamps on Kartik Purnima. This special evening tour combines temple darshan, a serene Ganga boat ride, and a reserved view of the celebrated Ganga Aarti amid Kashi's festive splendour.",
+    "highlights": [
+      "Witness the illuminated ghats of Varanasi on the auspicious occasion of Dev Diwali",
+      "Take an evening boat ride on the Ganga for sweeping views of the lamps and celebrations",
+      "Attend the grand Ganga Aarti at Dashashwamedh Ghat",
+      "Seek blessings at Shri Kashi Vishwanath Temple and Baba Kal Bhairav Temple"
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Dev Diwali Darshan, Boat Ride & Ganga Aarti",
+        "description": "Begin with darshan at Baba Kal Bhairav Temple and Shri Kashi Vishwanath Temple. As evening falls, proceed to the ghats for a private boat ride along the Ganga, taking in the thousands of diyas that light the riverfront for Dev Diwali. Conclude with the grand Ganga Aarti at Dashashwamedh Ghat before returning to your hotel or preferred drop-off point.",
+        "stops": [
+          {
+            "id": "A",
+            "title": "Baba Kal Bhairav & Shri Kashi Vishwanath Temple",
+            "description": "Seek blessings at two of Kashi's most revered temples.",
+            "type": "temple"
+          },
+          {
+            "id": "B",
+            "title": "Dev Diwali Ghat Walk",
+            "description": "Experience the festive riverfront adorned with countless earthen lamps.",
+            "type": "sightseeing"
+          },
+          {
+            "id": "C",
+            "title": "Evening Ganga Boat Ride",
+            "description": "View the illuminated ghats from the water.",
+            "type": "other"
+          },
+          {
+            "id": "D",
+            "title": "Grand Ganga Aarti",
+            "description": "Witness the Dev Diwali Ganga Aarti at Dashashwamedh Ghat.",
+            "type": "other"
+          }
+        ]
+      }
+    ],
+    "includes": [
+      "Private local vehicle for the scheduled sightseeing",
+      "Evening Ganga boat ride during Dev Diwali celebrations",
+      "Assistance for temple darshan and Ganga Aarti viewing",
+      "Pickup and drop within Varanasi city limits"
+    ],
+    "excludes": [
+      "Accommodation and meals",
+      "Temple fast-track entry fees or special pooja arrangements",
+      "Personal expenses, tipping, and shopping costs",
+      "Any services not explicitly mentioned in the inclusions"
+    ]
+  },
+  {
     "slug": "varanasi-2-days-itinerary",
     "title": "Varanasi 2 Days Itinerary",
     "subtitle": "A compact spiritual journey through the oldest living city, exploring ancient temples, historic sites, and sacred river rituals",
