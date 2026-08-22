@@ -8,6 +8,7 @@ import { getFeaturedTours } from "@/data/tours";
 import { site, whatsappLink } from "@/lib/site";
 import TourCard from "@/components/TourCard";
 import InquiryForm from "@/components/InquiryForm";
+import HeroCarousel from "@/components/HeroCarousel";
 
 const DESTINATIONS = [
   { id: "all", label: "All Destinations" },
@@ -123,14 +124,14 @@ export default function HomePageClient() {
       <section className="relative overflow-hidden bg-[#0A1118] text-white py-12 lg:py-20 border-b-4 border-[#D4AF37]">
         {/* Background Overlay */}
         {/* <div className="absolute inset-0 z-0 opacity-15"> */}
-          <Image
-                src="/varanasi_ghats_hd_bg.jpg"
-                alt="Varanasi ghats background"
-                fill
-                className="absolute inset-0 object-cover opacity-40"
-                priority
-              />
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-[#0A1118] via-[#0A1118]/90 to-[#0A1118]/70" />
+        <Image
+          src="/varanasi_ghats_hd_bg.jpg"
+          alt="Varanasi ghats background"
+          fill
+          className="absolute inset-0 object-cover opacity-40"
+          priority
+        />
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-[#0A1118] via-[#0A1118]/90 to-[#0A1118]/70" />
         </div> */}
 
         <div className="container-page relative z-10 max-w-7xl mx-auto px-4">
@@ -138,7 +139,7 @@ export default function HomePageClient() {
 
             {/* Left Column: Data, Branding & Navigation Controls */}
             <div className="relative lg:col-span-7 flex flex-col justify-center text-left space-y-6 overflow-hidden rounded-3xl">
-              
+
               {/* <div className="absolute inset-0 bg-gradient-to-r from-[#0A1118]/95 via-[#0A1118]/70 to-transparent" /> */}
 
               <div className="relative z-10 space-y-6">
@@ -417,7 +418,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      
+
 
       {/* ---------------- Why Divine Banaras ---------------- */}
       <section className="section">
@@ -483,106 +484,6 @@ export default function HomePageClient() {
     </>
   );
 }
-
-{/* ---------------- Hero Section Image Carousel Component ---------------- */ }
-
-function HeroCarousel({ onSelectDest }: { onSelectDest: (destId: string) => void }) {
-  const slides = [
-    {
-      title: "Kashi Vishwanath Temple",
-      subtitle: "VIP Darshan & Temple Assist",
-      image: "/kashi.jpg",
-      destId: "kashi",
-      badge: "VIP DARSHAN",
-    },
-    {
-      title: "Ganga Aarti Boat Ride",
-      subtitle: "Feel the Divine Energy at Dashashwamedh",
-      image: "/v7.jpg",
-      destId: "kashi",
-      badge: "MUST EXPERIENCE",
-    },
-    {
-      title: "Shri Ram Janmabhoomi",
-      subtitle: "Ayodhya Dham Day Tours & Cab Service",
-      image: "/ram-mandir.jpg",
-      destId: "ayodhya",
-      badge: "AYODHYA TOUR",
-    },
-    {
-      title: "Bodhgaya & Prayagraj",
-      subtitle: "Seamless Outstation Transfers & Stays",
-      image: "/bodhgaya.jpg",
-      destId: "bodhgaya",
-      badge: "FULL CIRCUIT",
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  return (
-    <div className="relative w-full h-[380px] sm:h-[440px] rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-2xl group">
-      {slides.map((slide, idx) => (
-        <div
-          key={slide.title}
-          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
-        >
-          <Image
-            src={slide.image}
-            alt={slide.title}
-            fill
-            className="object-cover"
-            priority={idx === 0}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1118] via-[#0A1118]/20 to-transparent" />
-
-          <div className="absolute bottom-0 inset-x-0 p-6 flex flex-col justify-end text-left">
-            <span className="self-start bg-[#D4AF37] text-[#0A1118] text-[10px] font-black uppercase px-2.5 py-1 rounded-full mb-2 shadow-md">
-              ★ {slide.badge} ★
-            </span>
-            <h3 className="font-display font-bold text-2xl text-white tracking-wide drop-shadow-md">
-              {slide.title}
-            </h3>
-            <p className="text-xs text-white/80 mt-1 mb-3">
-              {slide.subtitle}
-            </p>
-            <button
-              type="button"
-              onClick={() => onSelectDest(slide.destId)}
-              className="self-start text-xs font-bold text-[#F3C623] hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
-            >
-              Explore Package Details →
-            </button>
-          </div>
-        </div>
-      ))}
-
-      {/* Slide Navigation Controls */}
-      <div className="absolute bottom-4 right-4 z-20 flex gap-1.5">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setCurrentIndex(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
-            className={`h-2 rounded-full transition-all cursor-pointer ${idx === currentIndex ? "w-6 bg-[#D4AF37]" : "w-2 bg-white/50 hover:bg-white"
-              }`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-{/* ---------------- Utility Components ---------------- */ }
 
 function ValueIcon({ title, desc, icon }: { title: string; desc: string; icon: string }) {
   return (
