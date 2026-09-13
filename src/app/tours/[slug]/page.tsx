@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTour, tours } from "@/data/tours";
@@ -327,19 +328,19 @@ function StopIcon({ stop }: { stop: { title: string; description?: string; type?
     combinedText.includes("aarti");
 
   if (isHotel) {
-    return <img src="/hotel.png" alt="Hotel" className="h-7 w-7 object-contain" />;
+    return <Image src="/hotel.png" alt="Hotel" width={28} height={28} className="h-7 w-7 object-contain" />;
   }
 
   if (isTemple) {
-    return <img src="/temple.png" alt="Temple" className="h-7 w-7 object-contain" />;
+    return <Image src="/temple.png" alt="Temple" width={28} height={28} className="h-7 w-7 object-contain" />;
   }
 
   if (stop.type === "shopping" || combinedText.includes("shopping") || combinedText.includes("market")) {
-    return <img src="/shopping-bag.png" alt="Shopping" className="h-7 w-7 object-contain" />;
+    return <Image src="/shopping-bag.png" alt="Shopping" width={28} height={28} className="h-7 w-7 object-contain" />;
   }
 
   if (stop.type === "transport" || combinedText.includes("transfer") || combinedText.includes("airport")) {
-    return <img src="/transportation.png" alt="Transport" className="h-7 w-7 object-contain" />;
+    return <Image src="/transportation.png" alt="Transport" width={28} height={28} className="h-7 w-7 object-contain" />;
   }
 
   return (

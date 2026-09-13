@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 /**
  * Image placeholder for tour hero sections with optional decorative overlay.
  */
@@ -21,7 +23,7 @@ export default function PlaceholderImage({
       aria-label={label ?? "Tour image"}
     >
       {imageSrc ? (
-        <img src={imageSrc} alt="" className="h-full w-full object-cover" />
+        <Image src={imageSrc} alt="" fill sizes="100vw" className="object-cover" />
       ) : null}
       {/* Subtle mandala / ghat silhouette overlay */}
       <svg

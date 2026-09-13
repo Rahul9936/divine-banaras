@@ -57,7 +57,7 @@ export const tours: Tour[] = [
     "places": ["Varanasi", "Dashashwamedh Ghat", "Assi Ghat"],
     "priceFrom": 0,
     "startsIn": "Starts in Varanasi",
-    "stay": "No overnight stay",
+    "stay": "1-night stay included",
     "transport": "Private local vehicle",
     "featured": true,
     "popularOrder": 6,
@@ -100,6 +100,12 @@ export const tours: Tour[] = [
             "title": "Grand Ganga Aarti",
             "description": "Witness the Dev Diwali Ganga Aarti at Dashashwamedh Ghat.",
             "type": "other"
+          },
+          {
+            "id": "F",
+            "title": "Overnight stay at the hotel",
+            "description": "Take rest and prepare for the next day's spiritual journey",
+            "type": "hotel"
           }
         ]
       }

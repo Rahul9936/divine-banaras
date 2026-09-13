@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
 interface HeroSlide {
@@ -61,13 +61,13 @@ export default function HeroCarousel({ onSelectDest }: HeroCarouselProps) {
     setCurrentIndex((index + slides.length) % slides.length);
   };
 
-  const goNext = () => {
-    goToSlide(currentIndex + 1);
-  };
+  const goNext = useCallback(() => {
+    setCurrentIndex((index) => (index + 1) % slides.length);
+  }, []);
 
-  const goPrevious = () => {
-    goToSlide(currentIndex - 1);
-  };
+  const goPrevious = useCallback(() => {
+    setCurrentIndex((index) => (index - 1 + slides.length) % slides.length);
+  }, []);
 
   useEffect(() => {
     if (isPaused) return;
@@ -77,7 +77,7 @@ export default function HeroCarousel({ onSelectDest }: HeroCarouselProps) {
     }, 4000);
 
     return () => window.clearInterval(timer);
-  }, [currentIndex, isPaused]);
+  }, [goNext, isPaused]);
 
   return (
     <div

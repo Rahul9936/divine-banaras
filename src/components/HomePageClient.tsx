@@ -152,10 +152,10 @@ export default function HomePageClient() {
                 {/* Main Headline */}
                 <div>
                   <h1 className="font-display text-3xl sm:text-5xl lg:text-5xl font-extrabold uppercase tracking-wide text-white leading-tight">
-                    One Call For <span className="text-[#F3C623]">Complete Varanasi Trip</span>
+                    Don&apos;t Just Visit Varanasi, <span className="text-[#F3C623]">Experience it!!</span>
                   </h1>
                   <p className="mt-2 text-[#D4AF37] font-medium text-sm sm:text-base italic tracking-wider">
-                    — WE TAKE CARE OF EVERYTHING —
+                    — One Call For Complete Varanasi Trip —
                   </p>
                 </div>
 

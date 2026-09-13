@@ -12,6 +12,7 @@ interface HeroGalleryProps {
 export default function HeroGallery({ images, title, category }: HeroGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showDesktopThumbnails, setShowDesktopThumbnails] = useState(false);
 
   // Pad or slice images so we always have at least 5 for the grid
   const mainImage = images[0] || "/placeholder.jpg";
@@ -34,6 +35,17 @@ export default function HeroGallery({ images, title, category }: HeroGalleryProp
   const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   }, [images.length]);
+
+  // Keep thumbnail images out of the mobile DOM so they are not downloaded on
+  // smaller screens. They are added after hydration only for desktop layouts.
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const updateThumbnails = () => setShowDesktopThumbnails(mediaQuery.matches);
+
+    updateThumbnails();
+    mediaQuery.addEventListener("change", updateThumbnails);
+    return () => mediaQuery.removeEventListener("change", updateThumbnails);
+  }, []);
 
   // Keyboard navigation (Arrow keys & Escape)
   useEffect(() => {
@@ -59,10 +71,13 @@ export default function HeroGallery({ images, title, category }: HeroGalleryProp
             onClick={() => handleOpen(0)}
             className="relative cursor-pointer overflow-hidden md:col-span-2 md:row-span-2 group"
           >
-            <img
+            <Image
               src={mainImage}
               alt={`${title} main`}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              fill
+              priority
+              sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
             {/* Overlay Category Tag */}
             {category && (
@@ -73,16 +88,18 @@ export default function HeroGallery({ images, title, category }: HeroGalleryProp
           </div>
 
           {/* 4 Grid Thumbnails (Right Side) */}
-          {subImages.map((img, idx) => (
+          {showDesktopThumbnails && subImages.map((img, idx) => (
             <div
               key={idx}
               onClick={() => handleOpen(idx + 1 < images.length ? idx + 1 : 0)}
               className="relative hidden cursor-pointer overflow-hidden md:block group"
             >
-              <img
+              <Image
                 src={img}
                 alt={`${title} photo ${idx + 2}`}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                fill
+                sizes="(min-width: 768px) 25vw, 1px"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
           ))}
@@ -131,9 +148,12 @@ export default function HeroGallery({ images, title, category }: HeroGalleryProp
 
           {/* Image Container */}
           <div className="relative max-h-[85vh] max-w-[90vw] overflow-hidden rounded-xl">
-            <img
+            <Image
               src={images[currentIndex]}
               alt={`${title} - image ${currentIndex + 1}`}
+              width={1600}
+              height={1200}
+              sizes="90vw"
               className="max-h-[85vh] max-w-[90vw] object-contain select-none"
             />
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-1.5 text-xs text-white backdrop-blur-sm">
