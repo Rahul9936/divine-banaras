@@ -20,6 +20,34 @@ const sans = Inter({
   display: "swap",
 });
 
+const travelAgencySchema = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  name: site.name,
+  url: site.url,
+  description: site.description,
+  image: `${site.url}/banner.png`,
+  logo: `${site.url}/favicon.svg`,
+  telephone: `+${site.whatsapp}`,
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Sunderpur",
+    addressLocality: "Varanasi",
+    addressRegion: "Uttar Pradesh",
+    postalCode: "221005",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 25.2850509,
+    longitude: 82.9777356,
+  },
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Sunderpur%2C%20Varanasi%2C%20Uttar%20Pradesh%20221005%2C%20India",
+  areaServed: ["Varanasi", "Ayodhya", "Prayagraj", "Bodhgaya", "India"],
+  sameAs: [site.social.instagram, site.social.facebook, site.social.youtube],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -77,6 +105,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(travelAgencySchema) }}
+        />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
