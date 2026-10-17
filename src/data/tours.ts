@@ -60,7 +60,7 @@ export const tours: Tour[] = [
     "stay": "1-night stay included",
     "transport": "Private local vehicle",
     "featured": true,
-    "popularOrder": 6,
+    "popularOrder": 0,
     "imageSrc": "/dev-diwali.jpg",
     "images": ["/dev-diwali.jpg", "/ganga-aarti.jpg", "/v7.jpg", "/kashi-vishwanath-temple.jpg"],
     "gradient": "bg-sunrise-gradient",

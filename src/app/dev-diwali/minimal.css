@@ -1,0 +1,94 @@
+/* A quieter Dev Deepawali treatment while retaining the existing page structure. */
+.dev-diwali-page {
+  --dd-bg: #0c0a08;
+  --dd-soft: #100d0a;
+  --dd-gold: #e7b85c;
+  --dd-muted: #b8afa2;
+}
+
+.dd-hero {
+  min-height: 86vh;
+  background: radial-gradient(circle at 50% 82%, rgba(231, 184, 92, 0.13), transparent 34%), var(--dd-bg);
+}
+
+.dd-hero::before { display: block; opacity: .14; }
+.dd-glow { display: block; opacity: .6; }
+.dd-hero-content { animation: dd-enter 1.4s both; }
+.dd-hero h1 { font-size: clamp(72px, 13vw, 165px); text-shadow: none; }
+.diya { opacity: .72; filter: none; animation: dd-float 4s ease-in-out infinite; }
+.diya-3 { display: block; }
+.dd-river { height: 17%; background: linear-gradient(transparent, #0a1115), #0a1115; }
+
+.dd-intro,
+.dd-experience,
+.dd-timeline { padding-top: 84px; padding-bottom: 84px; }
+
+.dd-section-label { margin-bottom: 56px; }
+.dd-stats { margin-top: 90px; }
+.dd-stats > div { padding: 32px 18px; }
+.dd-experience { background: var(--dd-soft); }
+.dd-experience > .dd-reveal { margin-bottom: 60px; }
+
+.dd-card {
+  min-height: 315px;
+  padding: 32px;
+  background: transparent;
+  border-color: rgba(231, 184, 92, .18);
+}
+
+.dd-card:hover { transform: translateY(-6px); border-color: rgba(231, 184, 92, .5); }
+.dd-card > div { margin: 32px 0 20px; }
+
+.dd-ghats {
+  min-height: 680px;
+  background: linear-gradient(90deg, rgba(12, 10, 8, .96), rgba(12, 10, 8, .78), rgba(12, 10, 8, .45)), #20170d;
+}
+
+.dd-final { min-height: 560px; background: var(--dd-bg); }
+.dd-final::before,
+.dd-final::after { display: block; opacity: .45; }
+.dd-reveal { transform: translateY(25px); transition-duration: .65s; }
+
+.dd-moments { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1300px; margin: 70px auto 0; }
+.dd-moments > div { padding: 24px; border-top: 1px solid rgba(231, 184, 92, .3); }
+.dd-moments span { font-size: 22px; }
+.dd-moments h3 { margin: 13px 0 8px; font-size: 24px; font-weight: 400; }
+.dd-moments p { margin: 0; color: var(--dd-muted); font: 13px/1.7 Arial, sans-serif; }
+.dd-plan { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; padding: 84px 8%; background: #0f0c09; }
+.dd-plan h2 { margin: 14px 0 0; font-size: clamp(40px, 5vw, 70px); line-height: .95; font-weight: 400; }
+.dd-plan-list { border-top: 1px solid rgba(231, 184, 92, .25); }
+.dd-plan-list p { display: grid; grid-template-columns: 120px 1fr; gap: 20px; margin: 0; padding: 19px 0; border-bottom: 1px solid rgba(231, 184, 92, .16); font: 13px/1.55 Arial, sans-serif; color: var(--dd-muted); }
+.dd-plan-list b { color: var(--dd-cream); font-weight: 600; }
+
+.dd-event { padding: 84px 8%; background: #120e0a; }
+.dd-event-intro { max-width: 760px; }
+.dd-event-intro h2 { margin: 14px 0 20px; font-size: clamp(45px, 6vw, 82px); line-height: .93; font-weight: 400; }
+.dd-event-intro > p { max-width: 580px; color: var(--dd-muted); font: 15px/1.8 Arial, sans-serif; }
+.dd-event-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; max-width: 1100px; margin: 54px 0; background: rgba(231, 184, 92, .22); }
+.dd-event-facts > div { display: flex; flex-direction: column; min-height: 150px; padding: 27px; background: #120e0a; }
+.dd-event-facts small { color: var(--dd-gold); font: 600 10px Arial, sans-serif; letter-spacing: 2px; }
+.dd-event-facts strong { margin: 13px 0 4px; color: var(--dd-cream); font-size: 34px; font-weight: 400; }
+.dd-event-facts span { color: var(--dd-muted); font: 12px Arial, sans-serif; }
+.dd-inclusions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; max-width: 1200px; }
+.dd-inclusion { position: relative; padding: 28px 28px 28px 82px; border: 1px solid rgba(231, 184, 92, .18); }
+.dd-inclusion-icon { position: absolute; top: 27px; left: 28px; font-size: 26px; }
+.dd-inclusion h3 { margin: 0 0 13px; font-size: 24px; font-weight: 400; }
+.dd-inclusion ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.dd-inclusion li { color: var(--dd-muted); font: 13px/1.55 Arial, sans-serif; }
+.dd-inclusion li::before { content: "•"; margin-right: 8px; color: var(--dd-gold); }
+
+@media (max-width: 600px) {
+  .dd-hero { min-height: 76vh; }
+  .dd-intro, .dd-experience, .dd-timeline { padding-top: 64px; padding-bottom: 64px; }
+  .dd-card { padding: 28px; }
+  .dd-ghats { min-height: 580px; }
+  .dd-final { min-height: 540px; }
+  .dd-moments, .dd-plan { grid-template-columns: 1fr; gap: 28px; }
+  .dd-moments { margin-top: 42px; }
+  .dd-plan { padding: 64px 7%; }
+  .dd-plan-list p { grid-template-columns: 1fr; gap: 5px; }
+  .dd-event { padding: 64px 7%; }
+  .dd-event-facts, .dd-inclusions { grid-template-columns: 1fr; }
+  .dd-event-facts { margin: 38px 0; }
+  .dd-event-facts > div { min-height: auto; }
+}

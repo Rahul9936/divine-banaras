@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,6 @@ const DESTINATIONS = [
 export default function HomePageClient() {
   const router = useRouter();
   const featured = getFeaturedTours();
-  const carouselRef = useRef<HTMLDivElement | null>(null);
   const featuredToursRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedDest, setSelectedDest] = useState("all");
@@ -38,6 +37,11 @@ export default function HomePageClient() {
 
   const handleExploreClick = (targetDest?: string) => {
     const destToNavigate = targetDest || selectedDest;
+
+    if (destToNavigate === "dev-diwali") {
+      router.push("/dev-diwali");
+      return;
+    }
 
     if (destToNavigate === "kashi") {
       router.push("/tours/varanasi-2-days-itinerary");
@@ -57,67 +61,6 @@ export default function HomePageClient() {
     router.push("/tours");
   };
 
-  useEffect(() => {
-    const container = carouselRef.current;
-    if (!container) return;
-
-    const isScrollable = () => container.scrollWidth > container.clientWidth;
-    let suspendedUntil = 0;
-
-    const isContainerVisible = () => {
-      const rect = container.getBoundingClientRect();
-      const h = rect.height;
-      if (h === 0) return false;
-      const visibleTop = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-      return visibleTop / h >= 0.5;
-    };
-
-    const rotateCarousel = () => {
-      if (!isScrollable()) return;
-      if (Date.now() < suspendedUntil) return;
-      if (!isContainerVisible()) return;
-
-      const cards = Array.from(container.querySelectorAll<HTMLElement>("[data-carousel-card]"));
-      if (cards.length === 0) return;
-
-      const containerRect = container.getBoundingClientRect();
-      const containerCenter = containerRect.left + containerRect.width / 2;
-      let closestIndex = 0;
-      let smallestDistance = Infinity;
-
-      cards.forEach((card, i) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.left + rect.width / 2;
-        const dist = Math.abs(cardCenter - containerCenter);
-        if (dist < smallestDistance) {
-          smallestDistance = dist;
-          closestIndex = i;
-        }
-      });
-
-      const nextIndex = (closestIndex + 1) % cards.length;
-      cards[nextIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    };
-
-    const intervalId = window.setInterval(rotateCarousel, 10000);
-    const startTimeout = window.setTimeout(() => {
-      rotateCarousel();
-    }, 1200);
-
-    const suspend = () => {
-      suspendedUntil = Date.now() + 5000;
-    };
-    window.addEventListener("scroll", suspend, { passive: true });
-    window.addEventListener("touchstart", suspend, { passive: true });
-
-    return () => {
-      window.clearInterval(intervalId);
-      window.clearTimeout(startTimeout);
-      window.removeEventListener("scroll", suspend);
-      window.removeEventListener("touchstart", suspend);
-    };
-  }, []);
-
   return (
     <>
       {/* ---------------- Hero Section (Split Layout) ---------------- */}
@@ -131,6 +74,7 @@ export default function HomePageClient() {
           className="absolute inset-0 object-cover opacity-40"
           priority
         />
+        <DiyaDecorations />
         {/* <div className="absolute inset-0 bg-gradient-to-r from-[#0A1118] via-[#0A1118]/90 to-[#0A1118]/70" />
         </div> */}
 
@@ -223,7 +167,7 @@ export default function HomePageClient() {
               </div>
             </div>
 
-            {/* Right Column: Dynamic Image Carousel */}
+            {/* Right Column: Featured journey card */}
             <div className="lg:col-span-5 w-full">
               <HeroCarousel onSelectDest={handleExploreClick} />
             </div>
@@ -493,6 +437,31 @@ function ValueIcon({ title, desc, icon }: { title: string; desc: string; icon: s
       </div>
       <h4 className="text-xs font-bold text-[#F3C623] tracking-wider uppercase">{title}</h4>
       <p className="text-[10px] text-white/70 mt-0.5">{desc}</p>
+    </div>
+  );
+}
+
+function DiyaDecorations() {
+  return (
+    <div className="home-diya-decorations" aria-hidden="true">
+      <div className="home-diya home-diya-one"><span className="home-diya-flame" /><span className="home-diya-bowl" /><span className="home-diya-glow" /></div>
+      <div className="home-diya home-diya-two"><span className="home-diya-flame" /><span className="home-diya-bowl" /><span className="home-diya-glow" /></div>
+      <div className="home-diya home-diya-three"><span className="home-diya-flame" /><span className="home-diya-bowl" /><span className="home-diya-glow" /></div>
+      <style jsx>{`
+        .home-diya-decorations { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+        .home-diya { position: absolute; width: 64px; height: 74px; filter: drop-shadow(0 0 18px rgba(255, 184, 75, .85)); animation: diyaFloat 4s ease-in-out infinite; }
+        .home-diya-one { left: 2%; bottom: 5%; }
+        .home-diya-two { right: 3%; top: 8%; transform: scale(.9); animation-delay: 1.2s; }
+        .home-diya-three { right: 47%; bottom: 3%; transform: scale(.7); animation-delay: 2.2s; }
+        .home-diya-flame { position: absolute; z-index: 2; left: 20px; top: 1px; width: 15px; height: 30px; border-radius: 65% 35% 65% 35%; background: #fff6bb; box-shadow: 0 0 8px #fff, 0 0 22px #ffbd35, 0 0 42px #f47719; transform: rotate(15deg); animation: flameFlicker .8s ease-in-out infinite alternate; }
+        .home-diya-bowl { position: absolute; z-index: 2; bottom: 8px; left: 0; width: 64px; height: 25px; border-radius: 10% 10% 50% 50%; background: linear-gradient(180deg, #ffd172, #b95417 70%); box-shadow: inset 0 3px 4px rgba(255,255,255,.25); }
+        .home-diya-glow { position: absolute; left: -25px; bottom: -1px; width: 105px; height: 16px; border-radius: 50%; background: rgba(255, 181, 61, .36); filter: blur(9px); animation: glowPulse 2s ease-in-out infinite; }
+        @keyframes diyaFloat { 50% { translate: 0 -13px; } }
+        @keyframes flameFlicker { from { transform: rotate(-10deg) scale(.9); } to { transform: rotate(14deg) scale(1.08); } }
+        @keyframes glowPulse { 50% { scale: 1.35 1; opacity: .55; } }
+        @media (max-width: 640px) { .home-diya-one { left: 1%; bottom: 1%; transform: scale(.72); } .home-diya-two { right: 1%; top: 4%; transform: scale(.68); } .home-diya-three { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .home-diya, .home-diya-flame, .home-diya-glow { animation: none; } }
+      `}</style>
     </div>
   );
 }

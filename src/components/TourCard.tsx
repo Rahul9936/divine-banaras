@@ -3,9 +3,14 @@ import { formatINR, type Tour } from "@/data/tours";
 import PlaceholderImage from "./PlaceholderImage";
 
 export default function TourCard({ tour }: { tour: Tour }) {
+  const href =
+    tour.slug === "dev-diwali-varanasi-special-tour"
+      ? "/dev-diwali"
+      : `/tours/${tour.slug}`;
+
   return (
     <Link
-      href={`/tours/${tour.slug}`}
+      href={href}
       className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-maroon/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
     >
       <div className="relative">
