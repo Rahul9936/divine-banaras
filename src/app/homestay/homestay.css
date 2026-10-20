@@ -1,0 +1,53 @@
+/* Divine Home Stay page animations */
+
+.hs-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hs-reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hs-rise {
+  animation: hs-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hs-fade {
+  animation: hs-fade 0.5s ease both;
+}
+.hs-float {
+  animation: hs-float 6s ease-in-out infinite;
+}
+.hs-glow {
+  animation: hs-glow 7s ease-in-out infinite;
+}
+.hs-kenburns {
+  animation: hs-kenburns 18s ease-in-out infinite alternate;
+}
+
+@keyframes hs-rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hs-fade {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hs-float {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+@keyframes hs-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes hs-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.12) translateY(-2%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-reveal { opacity: 1; transform: none; transition: none; }
+  .hs-rise, .hs-fade, .hs-float, .hs-glow, .hs-kenburns { animation: none; }
+}

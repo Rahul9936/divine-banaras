@@ -5,9 +5,10 @@ import { useState } from "react";
 import Logo from "./Logo";
 import { site } from "@/lib/site";
 
-const navLinks = [
+const navLinks: Array<{ href: string; label: string; badge?: string }> = [
   { href: "/", label: "Home" },
   { href: "/tours", label: "Tours" },
+  { href: "/homestay", label: "Homestay", badge: "New" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -26,9 +27,14 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink/80 transition-colors hover:text-saffron"
+              className="relative text-sm font-medium text-ink/80 transition-colors hover:text-saffron"
             >
               {link.label}
+              {link.badge && (
+                <span className="absolute -right-6 -top-3 animate-pulse rounded-full bg-saffron px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none text-white">
+                  {link.badge}
+                </span>
+              )}
             </Link>
           ))}
           <Link href="/contact" className="btn-primary">
@@ -63,9 +69,12 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-base font-medium text-ink/80 hover:bg-sand hover:text-saffron"
+                className="flex items-center gap-2 rounded-lg px-3 py-3 text-base font-medium text-ink/80 hover:bg-sand hover:text-saffron"
               >
                 {link.label}
+                {link.badge && (
+                  <span className="rounded-full bg-saffron px-2 py-0.5 text-[10px] font-bold uppercase text-white">{link.badge}</span>
+                )}
               </Link>
             ))}
             <a href={site.phoneHref} className="btn-outline mt-2 w-full">
