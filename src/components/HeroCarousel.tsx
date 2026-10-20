@@ -7,7 +7,7 @@ interface HeroCarouselProps {
 const featuredJourney = {
   title: "Dev Diwali Varanasi",
   subtitle: "Experience the sacred ghats illuminated by countless diyas.",
-  image: "/dev-diwali.jpg",
+  image: "/dev-diwali.webp",
   destId: "dev-diwali",
   badge: "FESTIVAL OF LIGHTS",
   location: "VARANASI • DEV DEEPAWALI",

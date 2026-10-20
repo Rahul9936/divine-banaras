@@ -68,7 +68,7 @@ export default function HomePageClient() {
         {/* Background Overlay */}
         {/* <div className="absolute inset-0 z-0 opacity-15"> */}
         <Image
-          src="/varanasi_ghats_hd_bg.jpg"
+          src="/varanasi_ghats_hd_bg.webp"
           alt="Varanasi ghats background"
           fill
           className="absolute inset-0 object-cover opacity-40"
@@ -184,7 +184,7 @@ export default function HomePageClient() {
             <PosterServiceCard
               title="AIRPORT PICKUP & DROP"
               subtitle="On Time | Safe | Hassle Free"
-              imageSrc="/airport_service.jpg"
+              imageSrc="/airport_service.webp"
               icon="✈️"
               destId="ayodhya"
               onClick={handleExploreClick}
@@ -193,7 +193,7 @@ export default function HomePageClient() {
             <PosterServiceCard
               title="HOTEL BOOKING"
               subtitle="Budget to Luxury Best Stay Options"
-              imageSrc="/hotel_service.jpg"
+              imageSrc="/hotel_service.webp"
               icon="🏨"
               destId="bodhgaya"
               onClick={handleExploreClick}
@@ -202,7 +202,7 @@ export default function HomePageClient() {
             <PosterServiceCard
               title="CAB SERVICE"
               subtitle="Comfortable & Safe Rides"
-              imageSrc="/cab_service.jpg"
+              imageSrc="/cab_service.webp"
               icon="🚗"
               destId="kashi"
               onClick={handleExploreClick}
@@ -212,7 +212,7 @@ export default function HomePageClient() {
             <PosterServiceCard
               title="VIP DARSHAN"
               subtitle="Skip the Line | Divine Experience"
-              imageSrc="/vip_darshan_service.jpg"
+              imageSrc="/vip_darshan_service.webp"
               badge="VIP DARSHAN"
               icon="🛕"
               destId="kashi"
@@ -255,7 +255,7 @@ export default function HomePageClient() {
             title="Kashi Vishwanath"
             place="Varanasi"
             text="Darshan at the Jyotirlinga, the sunrise boat ride, and the electrifying Ganga Aarti."
-            imageSrc="/kashi-vishwanath-temple.jpg"
+            imageSrc="/kashi-vishwanath-temple.webp"
             href="/tours/varanasi-prayagraj-ayodhya-tour-package"
             className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
@@ -264,7 +264,7 @@ export default function HomePageClient() {
             title="Ram Janmabhoomi"
             place="Ayodhya Dham"
             text="Ram Lalla darshan at the grand mandir, Hanuman Garhi and the serene Sarayu Aarti."
-            imageSrc="/ram-mandir.jpg"
+            imageSrc="/ram-mandir.webp"
             href="/tours/varanasi-prayagraj-ayodhya-tour-package"
             className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
@@ -273,7 +273,7 @@ export default function HomePageClient() {
             title="Triveni Sangam"
             place="Prayagraj"
             text="Witness the holy confluence of the Ganga, Yamuna, and the mythical Saraswati."
-            imageSrc="/sangam.jpg"
+            imageSrc="/sangam.webp"
             href="/tours/varanasi-prayagraj-ayodhya-tour-package"
             className="w-[85vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
           />
@@ -570,13 +570,9 @@ function PosterServiceCard({
           src={imageSrc}
           alt={title}
           fill
-          // 1. Force Next.js to serve a high-density image variant (~1200px) on mobile
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          // 2. Increase compression quality from default 75 to 95 for sharp edges & text
-          quality={95}
-          // 3. Mark as priority so mobile browsers load high-res immediately
-          priority
-          // 4. Add will-change-transform to prevent Mobile Safari subpixel raster blur
+          // Below the fold: let these lazy-load so the hero images get bandwidth first.
+          // (sizes/quality are no-ops with `images.unoptimized`; the files are pre-sized WebP.)
+          // will-change-transform prevents Mobile Safari subpixel raster blur.
           className="object-cover transition-transform duration-500  will-change-transform"
         />
         <div className="" />

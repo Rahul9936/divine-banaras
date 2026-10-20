@@ -61,8 +61,8 @@ export const tours: Tour[] = [
     "transport": "Private local vehicle",
     "featured": true,
     "popularOrder": 0,
-    "imageSrc": "/dev-diwali.jpg",
-    "images": ["/dev-diwali.jpg", "/ganga-aarti.jpg", "/v7.jpg", "/kashi-vishwanath-temple.jpg"],
+    "imageSrc": "/dev-diwali.webp",
+    "images": ["/dev-diwali.webp", "/ganga-aarti.jpg", "/v7.jpg", "/kashi-vishwanath-temple.webp"],
     "gradient": "bg-sunrise-gradient",
     "summary": "Experience Dev Diwali in Varanasi, when the ghats glow with countless earthen lamps on Kartik Purnima. This special evening tour combines temple darshan, a serene Ganga boat ride, and a reserved view of the celebrated Ganga Aarti amid Kashi's festive splendour.",
     "highlights": [
@@ -137,7 +137,7 @@ export const tours: Tour[] = [
     "featured": true,
     "popularOrder": 1, // Popular Yatras popularOrder
     "imageSrc": "/ganga-aarti.jpg",
-    "images": ["/ganga-aarti.jpg", "/vt-bhu.jpg", "/kashi-vishwanath-temple.jpg", "/sankat-mochan.jpg", "/sarnath.jpg"],
+    "images": ["/ganga-aarti.jpg", "/vt-bhu.jpg", "/kashi-vishwanath-temple.webp", "/sankat-mochan.jpg", "/sarnath.jpg"],
     "gradient": "bg-sunrise-gradient",
     "summary": "Immerse yourself in the spiritual essence of Kashi with this optimal 2-day guide. Witness the spellbinding Ganga Aarti from a boat, visit the highly revered Kashi Vishwanath and Kal Bhairav temples, explore the historical lanes of Godowlia, and experience the peaceful Buddhist heritage of Sarnath.",
     "highlights": [
@@ -225,11 +225,11 @@ export const tours: Tour[] = [
     "startsIn": "Starts in Varanasi",
     "stay": "Hotel stay except Ayodhya",
     "transport": "Intercity transport included",
-    "imageSrc": "/divine-triangle.jpg ",
+    "imageSrc": "/divine-triangle.webp",
     "images": [
       "/kashi.jpg",
-      "/sangam.jpg",
-      "/ram-mandir.jpg"
+      "/sangam.webp",
+      "/ram-mandir.webp"
     ],
     "featured": true,
     "gradient": "bg-sunrise-gradient",
@@ -377,9 +377,9 @@ export const tours: Tour[] = [
     "stay": "2-night 3-star stay included",
     "transport": "Dedicated cab with driver",
     "featured": true,
-    "imageSrc": "/bodhgaya.jpg",
+    "imageSrc": "/bodhgaya.webp",
     "images": [
-      "/bodhgaya.jpg",
+      "/bodhgaya.webp",
       "/kashi.jpg",
       "/ganga-aarti.jpg"
     ],
@@ -541,12 +541,12 @@ export const tours: Tour[] = [
     "stay": "5-night stay included",
     "transport": "Private dedicated vehicle",
     "featured": true,
-    "imageSrc": "/sangam.jpg",
+    "imageSrc": "/sangam.webp",
     "images": [
-      "/sangam.jpg",
+      "/sangam.webp",
       "/kashi.jpg",
       "/sarnath.jpg",
-      "/ram-mandir.jpg"
+      "/ram-mandir.webp"
     ],
     "gradient": "bg-sunrise-gradient",
     "summary": "Immerse yourself in a comprehensive 6-day pilgrimage across India's most sacred destinations. Witness the divine Ganga Aarti in Varanasi, explore the ancient ruins of Sarnath, take a holy dip at Triveni Sangam, trace the footsteps of Lord Rama in Chitrakoot, and seek blessings at the historic Ram Janmabhoomi in Ayodhya.",
@@ -775,7 +775,7 @@ export const tours: Tour[] = [
     "images": [
       "/pinddaan.jpg",
       "/kashi.jpg",
-      "/sangam.jpg"
+      "/sangam.webp"
     ],
     "gradient": "bg-sunrise-gradient",
     "summary": "Perform the sacred rites of Pind Daan with complete peace of mind. This specialized 4-day itinerary connects the highly revered ghats of Kashi, the holy Triveni Sangam in Prayagraj, and the ancient Vishnupad Temple in Gaya, with dedicated Purohit services and ritual arrangements included.",
