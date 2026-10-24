@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,7 @@ import { site, whatsappLink } from "@/lib/site";
 import TourCard from "@/components/TourCard";
 import InquiryForm from "@/components/InquiryForm";
 import HeroCarousel from "@/components/HeroCarousel";
+import CustomerReviews from "@/components/CustomerReviews";
 
 const DESTINATIONS = [
   { id: "all", label: "All Destinations" },
@@ -24,6 +25,21 @@ export default function HomePageClient() {
   const featuredToursRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedDest, setSelectedDest] = useState("all");
+  const [toursAtStart, setToursAtStart] = useState(true);
+  const [toursAtEnd, setToursAtEnd] = useState(false);
+
+  const updateTourScrollEdges = useCallback(() => {
+    const container = featuredToursRef.current;
+    if (!container) return;
+    setToursAtStart(container.scrollLeft <= 4);
+    setToursAtEnd(container.scrollLeft + container.clientWidth >= container.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    updateTourScrollEdges();
+    window.addEventListener("resize", updateTourScrollEdges);
+    return () => window.removeEventListener("resize", updateTourScrollEdges);
+  }, [updateTourScrollEdges]);
 
   const scrollFeaturedTours = (direction: "previous" | "next") => {
     const container = featuredToursRef.current;
@@ -294,8 +310,9 @@ export default function HomePageClient() {
               <button
                 type="button"
                 onClick={() => scrollFeaturedTours("previous")}
+                disabled={toursAtStart}
                 aria-label="Show previous popular yatras"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-maroon/20 bg-white text-maroon transition-colors hover:bg-maroon hover:text-white focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-maroon/20 bg-white text-maroon transition-colors hover:bg-maroon hover:text-white focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-maroon"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -304,8 +321,9 @@ export default function HomePageClient() {
               <button
                 type="button"
                 onClick={() => scrollFeaturedTours("next")}
+                disabled={toursAtEnd}
                 aria-label="Show next popular yatras"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-maroon/20 bg-white text-maroon transition-colors hover:bg-maroon hover:text-white focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-maroon/20 bg-white text-maroon transition-colors hover:bg-maroon hover:text-white focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-maroon"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="m9 18 6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -317,15 +335,27 @@ export default function HomePageClient() {
             </div>
           </div>
 
-          <div
-            ref={featuredToursRef}
-            className="mt-10 flex items-stretch gap-6 overflow-x-auto pb-5 snap-x snap-mandatory scroll-smooth [scrollbar-width:none]"
-          >
-            {featured.map((tour) => (
-              <div key={tour.slug} className="flex w-[85vw] max-w-[360px] shrink-0 snap-start sm:w-[380px]">
-                <TourCard tour={tour} />
-              </div>
-            ))}
+          <div className="relative mt-10">
+            <div
+              ref={featuredToursRef}
+              onScroll={updateTourScrollEdges}
+              className="flex items-stretch gap-6 overflow-x-auto pb-5 snap-x snap-mandatory scroll-smooth [scrollbar-width:none]"
+            >
+              {featured.map((tour) => (
+                <div key={tour.slug} className="flex w-[85vw] max-w-[360px] shrink-0 snap-start sm:w-[380px]">
+                  <TourCard tour={tour} />
+                </div>
+              ))}
+            </div>
+            {/* Edge fades hint that the row scrolls; hidden once the user reaches that end. */}
+            <div
+              aria-hidden="true"
+              className={`pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[#F8EEE0] to-transparent transition-opacity duration-300 sm:w-16 ${toursAtStart ? "opacity-0" : "opacity-100"}`}
+            />
+            <div
+              aria-hidden="true"
+              className={`pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#F8EEE0] to-transparent transition-opacity duration-300 sm:w-16 ${toursAtEnd ? "opacity-0" : "opacity-100"}`}
+            />
           </div>
         </div>
       </section>
@@ -397,6 +427,8 @@ export default function HomePageClient() {
           </div>
         </div>
       </section>
+
+      <CustomerReviews />
 
       {/* ---------------- CTA ---------------- */}
       <section className="section">

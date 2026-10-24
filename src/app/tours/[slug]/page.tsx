@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTour, tours } from "@/data/tours";
@@ -176,39 +175,69 @@ export default async function TourDetailPage({
                           <h3 className="font-display text-xl font-bold text-maroon mt-0.5">
                             {d.title}
                           </h3>
+                          {d.description && (
+                            <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                              {d.description}
+                            </p>
+                          )}
                         </div>
 
                         {stops.length > 0 && (
-                          <div className="relative pl-2">
-                            <div className="absolute left-[24px] top-4 bottom-4 w-2 bg-saffron rounded-full" />
+                          <ol className="relative">
+                            {stops.map((stop, stopIndex) => {
+                              const isFirst = stopIndex === 0;
+                              const isLast = stopIndex === stops.length - 1;
+                              const isStartOfTour = isFirst && d === tour.itinerary[0];
+                              const isHotel = isHotelStop(stop);
 
-                            <div className="space-y-6 relative">
-                              {stops.map((stop, stopIndex) => {
-                                const isStart = stopIndex === 0;
-
-                                return (
-                                  <div key={stop.id || stopIndex} className="flex items-start gap-4 group">
-                                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-maroon text-cream shadow-md ring-4 ring-cream">
+                              return (
+                                <li key={stop.id || stopIndex} className="relative flex items-stretch gap-4">
+                                  {/* Marker + connector */}
+                                  <div className="flex w-10 shrink-0 flex-col items-center">
+                                    <div
+                                      className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full text-cream shadow-md ring-4 ring-cream ${
+                                        isHotel ? "bg-saffron-dark" : "bg-maroon"
+                                      }`}
+                                    >
                                       <StopIcon stop={stop} />
                                     </div>
+                                    {!isLast && (
+                                      <div className="my-1 w-0 flex-1 border-l-2 border-dashed border-saffron/60" aria-hidden="true" />
+                                    )}
+                                  </div>
 
-                                    <div className="pt-1">
-                                      <h4 className="font-display font-bold text-base text-maroon leading-tight">
-                                        {isStart && !stop.title.toLowerCase().includes("starting")
-                                          ? `Starting location: ${stop.title}`
-                                          : stop.title}
+                                  {/* Stop card */}
+                                  <div className={`min-w-0 flex-1 ${isLast ? "" : "pb-5"}`}>
+                                    <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-maroon/5">
+                                      <div className="flex flex-wrap items-center gap-2">
+                                        <span className="text-[11px] font-semibold uppercase tracking-wider text-ink/45">
+                                          Stop {stopIndex + 1} of {stops.length}
+                                        </span>
+                                        {isStartOfTour && (
+                                          <span className="rounded-full bg-saffron/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-saffron-dark">
+                                            Start
+                                          </span>
+                                        )}
+                                        {isHotel && (
+                                          <span className="rounded-full bg-maroon/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-maroon">
+                                            Stay
+                                          </span>
+                                        )}
+                                      </div>
+                                      <h4 className="mt-1 font-display text-base font-bold leading-tight text-maroon">
+                                        {stop.title}
                                       </h4>
                                       {stop.description && (
-                                        <p className="mt-1 text-sm text-ink/75 font-medium leading-relaxed">
+                                        <p className="mt-1 text-sm font-medium leading-relaxed text-ink/75">
                                           {stop.description}
                                         </p>
                                       )}
                                     </div>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          </div>
+                                </li>
+                              );
+                            })}
+                          </ol>
                         )}
                       </div>
                     );
@@ -306,46 +335,54 @@ function CheckIcon() {
   );
 }
 
-function StopIcon({ stop }: { stop: { title: string; description?: string; type?: string } }) {
-  const combinedText = `${stop.type || ""} ${stop.title} ${stop.description || ""}`.toLowerCase();
-
-  const isHotel =
+function isHotelStop(stop: { title: string; description?: string; type?: string }) {
+  const text = `${stop.type || ""} ${stop.title} ${stop.description || ""}`.toLowerCase();
+  return (
     stop.type === "hotel" ||
-    combinedText.includes("hotel") ||
-    combinedText.includes("check-in") ||
-    combinedText.includes("check in") ||
-    combinedText.includes("overnight stay") ||
-    combinedText.includes("resort") ||
-    combinedText.includes("inn");
+    text.includes("hotel") ||
+    text.includes("check-in") ||
+    text.includes("check in") ||
+    text.includes("overnight stay") ||
+    text.includes("resort") ||
+    /inn/.test(text)
+  );
+}
 
-  const isTemple =
+const STOP_ICON_PATHS = {
+  hotel: "M3 20V6m0 9h18v5M21 15v-2a3 3 0 0 0-3-3h-8v5M7 12.5a1.5 1.5 0 1 0 0-.01",
+  temple: "M12 3v3m-2 0h4M6 21V11a6 6 0 0 1 12 0v10M3 21h18M10 21v-5a2 2 0 0 1 4 0v5",
+  shopping: "M6 7h12l1 13H5L6 7zm3 0a3 3 0 0 1 6 0",
+  transport: "M5 16V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8M4 16h16v2H4v-2zm3-4h10M7 20v1m10-1v1",
+  boat: "M3 15h18l-2.5 4h-13L3 15zm9 0V4l5 8h-5M12 4L7 12h5",
+  pin: "M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11zm0-8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
+} as const;
+
+function StopIcon({ stop }: { stop: { title: string; description?: string; type?: string } }) {
+  const text = `${stop.type || ""} ${stop.title} ${stop.description || ""}`.toLowerCase();
+
+  let kind: keyof typeof STOP_ICON_PATHS = "pin";
+  if (isHotelStop(stop)) kind = "hotel";
+  else if (
     stop.type === "temple" ||
-    combinedText.includes("temple") ||
-    combinedText.includes("mandir") ||
-    combinedText.includes("dham") ||
-    combinedText.includes("shrine") ||
-    combinedText.includes("stupa") ||
-    combinedText.includes("aarti");
-
-  if (isHotel) {
-    return <Image src="/hotel.png" alt="Hotel" width={28} height={28} className="h-7 w-7 object-contain" />;
-  }
-
-  if (isTemple) {
-    return <Image src="/temple.png" alt="Temple" width={28} height={28} className="h-7 w-7 object-contain" />;
-  }
-
-  if (stop.type === "shopping" || combinedText.includes("shopping") || combinedText.includes("market")) {
-    return <Image src="/shopping-bag.png" alt="Shopping" width={28} height={28} className="h-7 w-7 object-contain" />;
-  }
-
-  if (stop.type === "transport" || combinedText.includes("transfer") || combinedText.includes("airport")) {
-    return <Image src="/transportation.png" alt="Transport" width={28} height={28} className="h-7 w-7 object-contain" />;
-  }
+    ["temple", "mandir", "dham", "shrine", "stupa", "aarti"].some((w) => text.includes(w))
+  ) kind = "temple";
+  else if (stop.type === "shopping" || text.includes("shopping") || text.includes("market")) kind = "shopping";
+  else if (text.includes("boat")) kind = "boat";
+  else if (stop.type === "transport" || text.includes("transfer") || text.includes("airport")) kind = "transport";
 
   return (
-    <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d={STOP_ICON_PATHS[kind]} />
     </svg>
   );
 }
