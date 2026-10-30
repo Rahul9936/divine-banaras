@@ -108,20 +108,16 @@ export default function DevDiwaliExperience() {
 
           <h1>
               Dev
-              <br />
-              <span>Deepawali</span>
-        </h1>
+              <span> Deepawali</span>
+          </h1>
 
           <h2>
             A sky full of
-            <br />
-            <span>wonder.</span>
+            <span> wonder.</span>
           </h2>
 
           <p>
-            Above the ancient ghats, the night comes alive.
-            A breathtaking symphony of light dances across
-            the sacred waters of the Ganges.
+            Above the ancient ghats, the night comes alive. A breathtaking symphony of light dances across the sacred waters of the Ganges.
           </p>
 
           <div className="celebration-divider">✦</div>

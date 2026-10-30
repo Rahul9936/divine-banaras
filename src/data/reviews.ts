@@ -1,31 +1,27 @@
 export type Review = {
   name: string;
   location?: string;
-  tour?: string;
+  tour?: string; // shown as "Travelled to …"
   rating?: 1 | 2 | 3 | 4 | 5;
   comment: string;
-  /** Path under /public, e.g. "/reviews/anita.jpg" or "/reviews/anita.mp4" */
-  media?: { type: "image" | "video"; src: string; poster?: string };
 };
 
-// Add real customer reviews here. Put their photos/videos in /public/reviews.
+// Add real customer reviews here. 
 // Example:
 // {
 //   name: "Anita Sharma",
 //   location: "Mumbai",
-//   tour: "Varanasi 2 Days Itinerary",
+//   tour: "Varanasi",
 //   rating: 5,
 //   comment: "Everything was smooth and the guide was wonderful.",
-//   media: { type: "image", src: "/reviews/anita.jpg" },
 // },
 export const reviews: Review[] = [
   // TEST DATA - replace with a real review before publishing
   {
-    name: "Test Customer",
-    location: "Delhi",
-    tour: "Varanasi 2 Days Itinerary",
+    name: "Kris Lakshmi Radhakrishnan",
+    location: "Varanasi",
+    tour: "Varanasi",
     rating: 5,
-    comment: "This is a sample review to test the layout. The Ganga aarti was unforgettable and the guide was very helpful.",
-    media: { type: "image", src: "/ganga-aarti.jpg" },
+    comment: "Mr.Rahul fulfilled my wishes in Varanasi. I strongly recommend the Divine Banaras tours and travels. No any tension. Good service.",
   },
 ];
