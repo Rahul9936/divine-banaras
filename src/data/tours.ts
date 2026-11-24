@@ -364,162 +364,85 @@ export const tours: Tour[] = [
   {
     "slug": "varanasi-gaya-tour-package",
     "title": "Varanasi Gaya Tour Package",
-    "subtitle": "A delightful spiritual journey exploring the ethereal vibes, ancient heritage, and sacred rituals of Gaya and Kashi",
+    "subtitle": "A three-day pilgrimage combining Ganga Aarti, Pind Daan at Gaya’s sacred sites, and darshan at Kashi Vishwanath and Mahabodhi Temple",
     "category": "Buddhist Circuit",
     "duration": "3 Days / 2 Nights",
     "popularOrder": 3, // Popular Yatras popularOrder
     "places": [
+      "Varanasi",
       "Gaya",
-      "Varanasi"
+      "Bodhgaya"
     ],
     "priceFrom": 18000,
-    "startsIn": "Starts in Gaya",
-    "stay": "2-night 3-star stay included",
+    "startsIn": "Starts in Varanasi",
+    "stay": "2-night hotel stay",
     "transport": "Dedicated cab with driver",
     "featured": true,
     "imageSrc": "/bodhgaya.webp",
     "images": [
-      "/bodhgaya.webp",
+      "/mahabodhi.jpeg",
       "/kashi.jpg",
-      "/ganga-aarti.jpg"
+      "/ganga-aarti.jpg",
+      "/mangla-gauri-temple.webp",
+      "/sitakund.jpeg",
+      "Vishnupad_Temple-Gaya.jpg"
     ],
     "gradient": "bg-sunrise-gradient",
-    "summary": "Experience a profound 3-day Hindu and Buddhist pilgrimage. Discover the sacred monuments of Gaya and Bodhgaya, witness the timeless evening Ganga Aarti, and explore the revered temples and historic landmarks of ancient Varanasi.",
+    "summary": "Follow a three-day pilgrimage from Varanasi to Gaya and Bodhgaya. Experience the evening Ganga Aarti, perform Pind Daan at the Falgu River, Akshaywat, and Vishnupad Temple with arranged purohit assistance, and visit Kashi Vishwanath Temple and Mahabodhi Temple.",
     "highlights": [
-      "Explore iconic Buddhist and Hindu sites in Gaya, including the Mahabodhi Temple and Vishnupad Mandir",
-      "Visit the legendary Kashi Vishwanath Temple and Bharat Mata Temple in Varanasi",
-      "Witness the breathtaking evening Ganga Aarti along the ancient ghats",
-      "Excursion to historic spiritual and cultural landmarks like Chunar Fort and Dhamek Stupa"
+      "Experience a Ganga boat ride and evening Aarti at Dashashwamedh Ghat",
+      "Perform Pind Daan at the Falgu River, Akshaywat, and Vishnupad Temple in Gaya",
+      "Visit Kashi Vishwanath Temple, one of the twelve Jyotirlingas",
+      "Explore Mahabodhi Temple and the sacred Bodhi Tree in Bodhgaya"
     ],
     "itinerary": [
       {
         "day": "Day 1",
-        "title": "Gaya Sightseeing City Tour",
-        "description": "Upon arrival at the airport, railway station, or other pickup locations, your guide and cab driver will meet you and transfer you to your hotel. After a brief half-hour rest to settle your luggage, head out for a comprehensive sightseeing tour of Gaya and Bodhgaya. Visit the Mahabodhi Temple, Archaeological Museum, Bodhi Tree, Wat Thai Buddhagaya, Great Buddha Statue, Thai Temple, Vishnupad Mandir, Dungeshwari Cave, Buddha Temple Bodhgaya, Prachin Bharat Multimedia Museum, Tergar Monastery, and Mucalinda Lake. Overnight stay at your hotel.",
+        "title": "Arrival in Varanasi & Ganga Aarti",
+        "description": "Arrive at Varanasi Airport or Railway Station and meet the company representative for transfer to the hotel and check-in. Have lunch and rest at the hotel. In the evening, enjoy a boat ride on the Ganga and experience the Ganga Aarti at Dashashwamedh Ghat. Return to the hotel for dinner and overnight stay.",
         "stops": [
-          {
-            "id": "A",
-            "title": "Hotel Check-in & Arrival",
-            "description": "Pickup from airport/railway station and transfer to hotel to settle luggage",
-            "type": "hotel"
-          },
-          {
-            "id": "B",
-            "title": "Mahabodhi Temple & Sacred Bodhi Tree Complex",
-            "description": "Visit the UNESCO Heritage Mahabodhi Temple, Bodhi Tree, and Mucalinda Lake",
-            "type": "sightseeing"
-          },
-          {
-            "id": "C",
-            "title": "Great Buddha Statue & Monasteries",
-            "description": "Explore the 80-foot Great Buddha Statue, Wat Thai, and Tergar Monastery",
-            "type": "sightseeing"
-          },
-          {
-            "id": "D",
-            "title": "Vishnupad Mandir & Dungeshwari Caves",
-            "description": "Visit the revered Hindu Vishnupad Temple and the historic Dungeshwari Cave Temples",
-            "type": "temple"
-          },
-          {
-            "id": "E",
-            "title": "Overnight stay in Gaya / Bodhgaya",
-            "description": "Return to the hotel for rest and overnight stay",
-            "type": "hotel"
-          }
+          { "id": "A", "title": "Arrival & Hotel Check-in", "description": "Meet the company representative at Varanasi Airport or Railway Station and transfer to the hotel.", "type": "hotel" },
+          { "id": "B", "title": "Lunch & Rest", "description": "Lunch and time to rest at the hotel.", "type": "other" },
+          { "id": "C", "title": "Ganga Boat Ride & Dashashwamedh Ghat Aarti", "description": "Take an evening boat ride on the Ganga and experience the Ganga Aarti at Dashashwamedh Ghat.", "type": "other" },
+          { "id": "D", "title": "Dinner & Overnight Stay in Varanasi", "description": "Return to the hotel for dinner and overnight stay.", "type": "hotel" }
         ]
       },
       {
         "day": "Day 2",
-        "title": "Varanasi Sightseeing City Tour - Part 1",
-        "description": "Travel to Varanasi to experience its deep spiritual heritage. Your city tour includes visits to the revered Kashi Vishwanath Temple, Bharat Mata Temple, and the historic Chunar Fort. Continue your exploration with visits to the Assi Ghat Aarti, Shivala Ghat, Banaras Hindu University, Rana Mahal Ghat, and the Alamgir Mosque. Overnight stay in Varanasi.",
+        "title": "Pind Daan in Varanasi & Drive to Gaya",
+        "description": "In the morning, proceed to a Ganga ghat for Pind Daan rites to honour ancestors. Later, visit Kashi Vishwanath Temple, one of the twelve Jyotirlingas. Return to the hotel, then drive approximately 260–270 km to Gaya (about 6–7 hours, subject to traffic and road conditions). On arrival, check in to the hotel for dinner and overnight stay.",
         "stops": [
-          {
-            "id": "A",
-            "title": "Transfer to Varanasi",
-            "description": "Drive from Gaya to the holy city of Varanasi",
-            "type": "transport"
-          },
-          {
-            "id": "B",
-            "title": "Shri Kashi Vishwanath & Bharat Mata Temple",
-            "description": "Seek blessings at the legendary Kashi Vishwanath Jyotirlinga and Bharat Mata Mandir",
-            "type": "temple"
-          },
-          {
-            "id": "C",
-            "title": "Historic Chunar Fort Excursion",
-            "description": "Explore the ancient fort overlooking the Ganges",
-            "type": "sightseeing"
-          },
-          {
-            "id": "D",
-            "title": "BHU Campus & Ghat Exploration",
-            "description": "Tour Banaras Hindu University and the scenic Shivala, Rana Mahal, and Alamgir Ghats",
-            "type": "sightseeing"
-          },
-          {
-            "id": "E",
-            "title": "Evening Aarti at Assi Ghat",
-            "description": "Witness the mesmerising evening Ganga Aarti at Assi Ghat",
-            "type": "other"
-          },
-          {
-            "id": "F",
-            "title": "Overnight stay in Varanasi",
-            "description": "Check in to your hotel for an overnight stay",
-            "type": "hotel"
-          }
+          { "id": "A", "title": "Pind Daan at a Varanasi Ghat", "description": "Perform rites to honour ancestors with purohit assistance as arranged for the package.", "type": "other" },
+          { "id": "B", "title": "Kashi Vishwanath Temple", "description": "Visit the revered Jyotirlinga temple in Varanasi. Darshan is subject to temple timings and access arrangements.", "type": "temple" },
+          { "id": "C", "title": "Drive from Varanasi to Gaya", "description": "Travel approximately 260–270 km (around 6–7 hours, subject to road conditions).", "type": "transport" },
+          { "id": "D", "title": "Hotel Check-in & Overnight Stay in Gaya", "description": "Check in on arrival; dinner and overnight stay at the hotel.", "type": "hotel" }
         ]
       },
       {
         "day": "Day 3",
-        "title": "Varanasi Sightseeing City Tour - Part 2 & Departure",
-        "description": "Dedicate your final day to exploring more of Varanasi's prominent landmarks. Visit the Tulsi Manasa Temple, Durga Mandir, Dashashwamedh Ghat, Dhamek Stupa, Sankat Mochan Mandir, Khidkiya Ghat, and the Trade Center Museum, alongside experiencing the regular Ganga Aarti rituals. Conclude your tour with a drop-off at your designated departure location, such as the airport or railway station.",
+        "title": "Pind Daan in Gaya, Bodhgaya & Departure",
+        "description": "In the morning, perform Pind Daan at the Falgu River, Akshaywat, and Vishnupad Temple with arranged purohit assistance. Visit Vishnupad Temple, dedicated to Lord Vishnu and situated by the Falgu River. Return to the hotel for breakfast, then visit Mahabodhi Temple and the sacred Bodhi Tree in Bodhgaya. Transfer to Gaya Airport in time for your onward journey. Confirm the ritual and departure schedule when booking, as the order may need to be coordinated with local timings and your flight.",
         "stops": [
-          {
-            "id": "A",
-            "title": "Southern Temples Circuit",
-            "description": "Visit Tulsi Manas Mandir, Durga Mandir, and Sankat Mochan Hanuman Mandir",
-            "type": "temple"
-          },
-          {
-            "id": "B",
-            "title": "Sarnath Excursion (Dhamek Stupa)",
-            "description": "Tour the ancient Buddhist heritage site and Dhamek Stupa",
-            "type": "sightseeing"
-          },
-          {
-            "id": "C",
-            "title": "Khidkiya Ghat & Trade Center Museum",
-            "description": "Visit modern cultural developments and the Trade Facilitation Center",
-            "type": "sightseeing"
-          },
-          {
-            "id": "D",
-            "title": "Dashashwamedh Ghat & Rituals",
-            "description": "Explore the prominent Dashashwamedh Ghat and its ancient ritual spaces",
-            "type": "other"
-          },
-          {
-            "id": "E",
-            "title": "Departure Transfer",
-            "description": "Transfer to Varanasi Airport or Railway Station for your onward journey",
-            "type": "transport"
-          }
+          { "id": "A", "title": "Pind Daan at Falgu River, Akshaywat & Vishnupad", "description": "Complete the planned ancestral rites at the listed sacred sites with purohit assistance as arranged.", "type": "other" },
+          { "id": "B", "title": "Vishnupad Temple", "description": "Visit the temple dedicated to Lord Vishnu on the bank of the Falgu River.", "type": "temple" },
+          { "id": "C", "title": "Hotel Breakfast", "description": "Return to the hotel for breakfast before continuing to Bodhgaya.", "type": "hotel" },
+          { "id": "D", "title": "Mahabodhi Temple & Bodhi Tree", "description": "Visit the Mahabodhi Temple and the sacred Bodhi Tree in Bodhgaya.", "type": "sightseeing" },
+          { "id": "E", "title": "Transfer to Gaya Airport", "description": "Transfer to Gaya Airport for your onward journey.", "type": "transport" }
         ]
       }
     ],
     "includes": [
-      "2 nights accommodation at a 3-star hotel",
-      "Daily breakfast and meals as provided by the hotel",
-      "Dedicated cab, fuel/oil costs, and professional driver service",
-      "Pickup and drop-off assistance at airport, railway station, or hotel locations"
+      "2-night hotel accommodation in Varanasi and Gaya (hotel category and meal plan to be confirmed at booking)",
+      "Dedicated cab with driver for the listed itinerary and intercity transfer",
+      "Airport or railway station pickup in Varanasi and transfer to Gaya Airport on departure, as per the confirmed itinerary",
+      "Purohit assistance and Pind Daan arrangements at the listed Varanasi and Gaya sites, as confirmed at booking",
+      "Ganga boat ride for the evening Aarti, subject to availability and local conditions"
     ],
     "excludes": [
-      "Camera fees at monuments and temples",
-      "Optional language converter guide service (available for an extra fee of Rs. 1500)",
-      "Personal expenses, tipping, and anything not explicitly mentioned in the inclusions"
+      "Airfare or train tickets to and from the tour",
+      "Meals not expressly confirmed in the hotel meal plan or inclusions",
+      "Temple entry, special darshan fees, and personal offerings unless confirmed in writing",
+      "Personal expenses, tips, and services not explicitly listed in the confirmed inclusions"
     ]
   },
   {
@@ -773,9 +696,11 @@ export const tours: Tour[] = [
     "featured": true,
     "imageSrc": "/pinddaan.jpg",
     "images": [
+      "/sitakund.jpeg",
+      "/Vishnupad_Temple-Gaya.jpg",
+      "/mahabodhi.jpeg",
       "/pinddaan.jpg",
-      "/kashi.jpg",
-      "/sangam.webp"
+      "/ganga-aarti.jpg",
     ],
     "gradient": "bg-sunrise-gradient",
     "summary": "Perform the sacred rites of Pind Daan with complete peace of mind. This specialized 4-day itinerary connects the highly revered ghats of Kashi, the holy Triveni Sangam in Prayagraj, and the ancient Vishnupad Temple in Gaya, with dedicated Purohit services and ritual arrangements included.",

@@ -84,6 +84,7 @@ export default async function TourDetailPage({
   if (!tour) notFound();
 
   const tourTitleClean = tour.title.split("—")[0].trim();
+  const isGayaTour = tour.places.some((place) => place.toLowerCase().includes("gaya"));
   const waMessage = `Namaste! I'm interested in the "${tourTitleClean}" (${tour.duration}) tour. Please share details.`;
 
   const galleryImages: string[] =
@@ -245,6 +246,96 @@ export default async function TourDetailPage({
                 </div>
               </div>
             )}
+
+            {/* Tour-specific FAQs */}
+            <section className="mt-12" aria-labelledby="tour-faq-heading">
+              <h2 id="tour-faq-heading" className="font-display text-2xl font-bold text-maroon">
+                Frequently Asked Questions
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                Helpful details for planning your {tourTitleClean}.
+              </p>
+              <div className="mt-5 divide-y divide-maroon/10 rounded-2xl border border-maroon/10 bg-white px-5">
+                {(isGayaTour
+                  ? [
+                      {
+                        question: "What is included in the Gaya Pind Daan arrangements?",
+                        answer: `The package includes ${tour.includes?.join(", ") || "the services listed in the inclusions above"}. Please check “What’s included” and “Not included” above for this specific tour’s arrangements.`,
+                      },
+                      {
+                        question: "How long does Pind Daan in Gaya take?",
+                        answer: "The time required depends on the rites being performed, the sites included, and local conditions. The Gaya portion is planned as shown in this itinerary; contact us with your dates and requirements to confirm the expected schedule.",
+                      },
+                      {
+                        question: "Which places in Gaya are included for Pind Daan?",
+                        answer: "The itinerary includes rites in the Falgu River area and visits to Vishnupad Temple and Mangla Gauri Temple. Please enquire if you need a particular vedi or an expanded Gaya itinerary.",
+                      },
+                      {
+                        question: "Can Pind Daan be performed within one year of a death?",
+                        answer: "Ritual customs and family circumstances can differ. Please consult your family priest or the purohit conducting the rites about the appropriate timing and any requirements for your tradition.",
+                      },
+                      {
+                        question: "What should I bring for the Gaya Pind Daan rites?",
+                        answer: "When enquiring, share the family details requested by your purohit, such as gotra and ancestor names if available. Confirm clothing, any additional samagri, and other preparations directly with the purohit before travel.",
+                      },
+                      {
+                        question: "Can the Gaya Pind Daan itinerary be adjusted?",
+                        answer: "Travel dates, the number of sites, language needs, and the pace may affect what can be arranged. Contact us before booking to discuss your requirements and confirm the final itinerary.",
+                      },
+                      {
+                        question: "Does the package include travel and accommodation in Gaya?",
+                        answer: `Please check the inclusions and exclusions listed above. This package starts in ${tour.startsIn.replace(/^Starts in /i, "")}; send your arrival details so the team can confirm pickup, transport, and any accommodation arrangements for your dates.`,
+                      },
+                      {
+                        question: "How can I check availability and get a price?",
+                        answer: "Send an enquiry using the WhatsApp or call buttons on this page. Include your preferred dates, number of travellers, language preference, and the rites or sites you wish to include so the team can confirm availability and provide a quote.",
+                      },
+                    ]
+                  : [
+                      {
+                        question: `What is included in the ${tourTitleClean}?`,
+                        answer: `The package includes ${tour.includes?.join(", ") || "the services listed in the inclusions above"}. Items listed under “Not included” are not part of the package.`,
+                      },
+                      {
+                        question: `How long is the ${tourTitleClean}?`,
+                        answer: `The planned duration is ${tour.duration}. Please refer to the itinerary above for the day-by-day schedule and destinations.`,
+                      },
+                      {
+                        question: "Where does this tour start?",
+                        answer: `${tour.startsIn}. Share your arrival details when enquiring so the pickup and schedule can be confirmed.`,
+                      },
+                      {
+                        question: "Can the itinerary be adjusted for my dates or preferences?",
+                        answer: `The itinerary can often be adapted to your dates, pace, hotel preference and darshan needs. Contact us before booking to discuss what can be arranged for this tour.`,
+                      },
+                      {
+                        question: "Are meals and hotel stays included in your Kashi–Ayodhya tour packages?",
+                        answer: `Inclusions vary by tour package. Please check the “What’s included” and “Not included” sections on this page for the specific hotel and meal arrangements for this tour. You can also contact us with your travel dates and preferences to confirm the details before booking.`,
+                      },
+                      {
+                        question: "What is the timing of Ganga Aarti?",
+                        answer: "The main Ganga Aarti at Dashashwamedh Ghat is held in the evening, usually around sunset. The exact start time changes with the season, so please confirm the day's schedule locally.",
+                      },
+                      {
+                        question: "Can you help arrange Sugam Darshan or VIP passes for Kashi Vishwanath Temple and Ram Mandir in Ayodhya?",
+                        answer: "We can guide you on darshan and pass arrangements for Kashi Vishwanath Temple and Shri Ram Mandir in Ayodhya. Availability, eligibility, fees and booking rules are set by the respective temple authorities and may change; please contact us before your visit so we can confirm the latest process. Passes are subject to availability and temple approval.",
+                      },
+                      {
+                        question: "How can I check availability and get the price?",
+                        answer: "Send an enquiry using the WhatsApp or call buttons on this page. Please include your preferred travel dates and number of travellers so the team can confirm availability and provide a quote.",
+                      },
+                    ]
+                ).map((item) => (
+                  <details key={item.question} className="group py-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-maroon marker:hidden">
+                      {item.question}
+                      <span className="shrink-0 text-xl text-saffron transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                    </summary>
+                    <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink/75">{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
 
             {/* Includes / Excludes */}
             <div className="mt-10 grid gap-8 sm:grid-cols-2">
